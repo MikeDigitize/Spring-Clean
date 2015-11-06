@@ -10,13 +10,13 @@
     <div class="container">
         <section class="row">
             <header class="col-xs-12">
-                <div class="header-background">
+                <div class="header-background" role="banner">
                     <h1>Spring clean <span class="subtitle">Professional cleaning service</span></h1>
                 </div>
                 <div class="header-tagline">
                     <p>You've come to the right place!</p>
                 </div>
-                <nav class="header-nav">
+                <nav class="header-nav" role="navigation">
                     <ul>
                         <li><a href="#">Home</a></li>
                         <li><a href="#">Services</a></li>
@@ -26,16 +26,20 @@
                 </nav>
             </header>
         </section>
+    </div>
+    <main class="container" role="main">
         <section class="row">
-            <article class="about-us col-xs-12">
+            <article class="about-us col-xs-12" role="article">
+
                 <h2>About us</h2>
                 <p>At Spring Clean Home Services, we know that when you are looking for a cleaner to clean your home or office , you want a local based cleaning company that you can trust and rely on.  We work to the highest standards with a professional and flexible service to suit your individual requirements.</p>
                 <p>And un-like most other cleaning company’s - Spring Clean Home Services do not tie you into any contract, there is nothing to sign - you can book us as much or little as you like.</p>
                 <strong>Our goal is to continually exceed your expectations.</strong>
+
             </article>
         </section>
         <section class="row">
-            <article class="make-it-shine col-xs-12">
+            <article class="make-it-shine col-xs-12" role="complementary">
                 <h2>Making it shine!</h2>
                 <img
                         src="images/spring-clean-make-it-shine.png"
@@ -45,7 +49,7 @@
             </article>
         </section>
         <section class="row">
-            <article class="not-afraid col-xs-12">
+            <article class="not-afraid col-xs-12" role="complementary">
                 <h2>We're not afraid</h2>
                 <img
                         src="images/spring-clean-not-afraid-of-dirt.png"
@@ -55,38 +59,71 @@
             </article>
         </section>
         <section class="row">
-            <article class="not-afraid col-xs-12">
-                <h2>Message us</h2>
-                <form>
+            <article class="message-us col-xs-12">
+                <h2 id="message-us-title">Message us</h2>
+                <form aria-labelledby="message-us-title">
                     <fieldset class="col-sm-5">
                         <div class="form-group">
-                            <label for="contact-form-name">Name</label>
-                            <input type="text" class="form-control" id="contact-form-name" placeholder="Name">
+                            <label for="contact-form-name" aria-hidden="true">Name</label>
+                            <input
+                                    type="text"
+                                    aria-required="true"
+                                    pattern="[a-zA-Z]+"
+                                    class="form-control"
+                                    id="contact-form-name"
+                                    placeholder="Name"
+                                    required
+                            >
                         </div>
                         <div class="form-group">
-                            <label for="contact-form-company">Company</label>
-                            <input type="text" class="form-control" id="contact-form-company" placeholder="Company">
+                            <label for="contact-form-company" aria-hidden="true">Company</label>
+                            <input
+                                    type="text"
+                                    aria-required="false"
+                                    pattern="[a-zA-Z]+"
+                                    class="form-control"
+                                    id="contact-form-company"
+                                    placeholder="Company"
+                            >
                         </div>
                         <div class="form-group">
-                            <label for="contact-form-email">Email</label>
-                            <input type="email" class="form-control" id="contact-form-email" placeholder="Email">
+                            <label for="contact-form-email" aria-hidden="true">Email</label>
+                            <input
+                                    type="email"
+                                    aria-required="true"
+                                    pattern="/[^\s]*@[a-z0-9.-]*/i"
+                                    class="form-control"
+                                    id="contact-form-email"
+                                    placeholder="Email"
+                                    required
+                            >
                         </div>
                         <div class="form-group">
-                            <label for="contact-form-email">Phone number</label>
-                            <input type="number" class="form-control" id="contact-form-phone" placeholder="Phone number">
+                            <label for="contact-form-email" aria-hidden="true">Phone number</label>
+                            <input
+                                    type="number"
+                                    aria-required="false"
+                                    pattern="[0-9]+"
+                                    maxlength="12" min="10"
+                                    class="form-control"
+                                    id="contact-form-phone"
+                                    placeholder="Phone number"
+                            >
                         </div>
                     </fieldset>
                     <fieldset class="col-sm-5">
                         <textarea class="form-control" rows="3"></textarea>
                     </fieldset>
-                    <fieldset col-sm-2>
-                        <button type="submit" class="btn btn-default">Woop</button>
+                    <fieldset class="col-sm-2">
+                        <button type="submit" aria-label="submit" class="btn btn-default" role="button">Send</button>
                     </fieldset>
                 </form>
             </article>
         </section>
+    </main>
+    <div class="container">
         <section class="row">
-            <footer>
+            <footer role="contentinfo">
                 <p class="footer-main-telephone-number">Call us today 01942 796046</p>
                 <p class="footer-alternate-telephone-numbers">01204 238278 | 07834 722561</p>
                 <p class="footer-tagline">Spring clean professional cleaning service</p>
