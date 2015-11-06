@@ -1,0 +1,25 @@
+{
+  "name": "Spring-Cleaning",
+  "version": "1.0.0",
+  "description": "http://www.springcleanhomeservices.co.uk/",
+  "main": "build-runner.js",
+  "scripts": {
+    "start": "node build-runner.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mike",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^5.8.19",
+    "babel-loader": "^5.3.2",
+    "css-loader": "^0.16.0",
+    "extract-text-webpack-plugin": "^0.8.2",
+    "file-loader": "^0.8.4",
+    "html-webpack-plugin": "^1.6.1",
+    "node-sass": "^3.3.3",
+    "sass-loader": "^2.0.1",
+    "style-loader": "^0.12.3",
+    "url-loader": "^0.5.6",
+    "webpack": "^1.10.5"
+  }
+}
