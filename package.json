@@ -1,25 +1,35 @@
 {
-  "name": "Spring-Cleaning",
+  "name": "spring-clean",
   "version": "1.0.0",
-  "description": "http://www.springcleanhomeservices.co.uk/",
-  "main": "build-runner.js",
+  "description": "www.springcleanhomeservices.co.uk",
+  "main": "index.js",
   "scripts": {
-    "start": "node build-runner.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MikeDigitize/Spring-Clean.git"
+  },
   "author": "Mike",
-  "license": "MIT",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MikeDigitize/Spring-Clean/issues"
+  },
+  "homepage": "https://github.com/MikeDigitize/Spring-Clean#readme",
   "devDependencies": {
-    "babel-core": "^5.8.19",
-    "babel-loader": "^5.3.2",
-    "css-loader": "^0.16.0",
-    "extract-text-webpack-plugin": "^0.8.2",
-    "file-loader": "^0.8.4",
-    "html-webpack-plugin": "^1.6.1",
-    "node-sass": "^3.3.3",
-    "sass-loader": "^2.0.1",
-    "style-loader": "^0.12.3",
-    "url-loader": "^0.5.6",
-    "webpack": "^1.10.5"
+    "babel-core": "^6.1.2",
+    "babel-loader": "^6.0.1",
+    "babel-preset-es2015": "^6.1.2",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-changed": "^1.3.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-imagemin": "^2.4.0",
+    "gulp-minify-css": "^1.2.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.1.0",
+    "gulp-uglify": "^1.4.2",
+    "run-sequence": "^1.1.4",
+    "webpack": "^1.12.3"
   }
 }
