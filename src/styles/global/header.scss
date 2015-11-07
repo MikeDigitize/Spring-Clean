@@ -1,0 +1,45 @@
+@import "../global/global";
+
+.header {
+  padding: 0 5px 5px;
+  .header-background {
+    background: url(../../images/header-background.png) center top no-repeat;
+    color: #fff;
+    text-align: center;
+    background-size: 100% 100%;
+    @include clear-float;
+    @media(max-width:990px) {
+      background-size: cover;
+      background-position: 3% 10%;
+    }
+    @media(max-width:768px) {
+      background-position: 40%;
+    }
+    h1 {
+      font-size: 60px;
+      padding-top: 34px;
+      margin: 0 28% auto auto;
+      .subtitle {
+        display: block;
+        font-size: 20px;
+        text-align: right;
+        margin-right: 22%;
+      }
+      @media(max-width: 990px) {
+        margin: 0 0% auto auto;
+      }
+    }
+    .header-telephone-numbers {
+      text-align: left;
+      padding: 2% 0 2% 4%;
+      line-height: 8px;
+      .main-number {
+        font-size: 25px;
+      }
+      .additional-number {
+        padding-top: 5px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

@@ -8,4 +8,11 @@
   font-style: normal;
 }
 
-h1, h2, h3, h4, h5 { font-family: "American Typewriter"; font-weight: normal }
+body { font-family: "American Typewriter"; font-weight: normal }
+@mixin clear-float {
+  &:after {
+    display: table;
+    content: "";
+    clear: both;
+  }
+}

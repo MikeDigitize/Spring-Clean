@@ -99,11 +99,10 @@ gulp.task("images", () => {
     return sequence("optimise-images", "retina");
 });
 
-gulp.task("watch", function () {
-    gulp.watch(`${DIRS.src}${DIRS.styles}/*/**.+(css|scss)`, ["styles"]);
-    gulp.watch(`${DIRS.src}${DIRS.js}/*.js`, ["js"]);
-    gulp.watch(`${DIRS.src}/*.html`, ["html"]);
-    gulp.watch(`${DIRS.src}${DIRS.images}/*.+(jpg|png)`, ["images"]);
+gulp.task("watch", () => {
+    gulp.watch(`${DIRS.src}${DIRS.styles}/*/**.+(css|scss)`, ["styles", "images"]);
+    gulp.watch(`${DIRS.src}${DIRS.js}/*.js`, ["js", "images"]);
+    gulp.watch(`${DIRS.src}/*.html`, ["html", "images"]);
 });
 
 gulp.task("default", ["styles", "js", "assets", "watch"]);
