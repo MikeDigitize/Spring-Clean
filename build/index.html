@@ -49,7 +49,7 @@
             <section class="row">
                 <article class="about-us col-xs-12" role="article">
                     <div class="inner">
-                        <h2>About us</h2>
+                        <h2><span class="title-icon"></span> <span class="title-text">About us</span></h2>
                         <p>At Spring Clean Home Services, we know that when you are looking for a cleaner to clean your home or office , you want a local based cleaning company that you can trust and rely on.  We work to the highest standards with a professional and flexible service to suit your individual requirements. And un-like most other cleaning company’s - Spring Clean Home Services do not tie you into any contract, there is nothing to sign - you can book us as much or little as you like.</p>
                         <strong>Our goal is to continually exceed your expectations.</strong>
                     </div>
@@ -57,40 +57,46 @@
             </section>
             <section class="row">
                 <article class="make-it-shine col-xs-12" role="complementary">
-                    <h2>Making it shine!</h2>
-                    <picture>
-                        <source
-                                media="(min-width: 768px)"
-                                srcset="images/retina/spring-clean-make-it-shine.png"
-                        />
-                        <source
-                                media="(max-width: 768px)"
-                                srcset="images/spring-clean-make-it-shine.png"
-                        />
-                        <img
-                                src="images/spring-clean-make-it-shine.png"
-                                alt="Spring cleaning home services will make your home shine!"
-                        />
-                    </picture>
+                    <div class="inner">
+                        <h2><span class="title-icon"></span> <span class="title-text">Making it shine!</span></h2>
+                        <picture>
+                            <source
+                                    media="(min-width: 768px)"
+                                    srcset="images/retina/spring-clean-make-it-shine.png"
+                            />
+                            <source
+                                    media="(max-width: 768px)"
+                                    srcset="images/spring-clean-make-it-shine.png"
+                            />
+                            <img
+                                    src="images/spring-clean-make-it-shine.png"
+                                    alt="Spring cleaning home services will make your home shine!"
+                                    class="img-responsive"
+                            />
+                        </picture>
+                    </div>
                 </article>
             </section>
             <section class="row">
                 <article class="not-afraid col-xs-12" role="complementary">
-                    <h2>We're not afraid</h2>
-                    <picture>
-                        <source
-                                media="(min-width: 768px)"
-                                srcset="images/retina/spring-clean-not-afraid-of-dirt.png"
-                        />
-                        <source
-                                media="(max-width: 768px)"
-                                srcset="images/spring-clean-not-afraid-of-dirt.png"
-                        />
-                        <img
-                                src="images/spring-clean-not-afraid-of-dirt.png"
-                                alt="Spring cleaning home services will take on any cleaning challenge!"
-                        />
-                    </picture>
+                    <div class="inner">
+                        <h2><span class="title-icon"></span> <span class="title-text">We're not afraid!</span></h2>
+                        <picture>
+                            <source
+                                    media="(min-width: 768px)"
+                                    srcset="images/retina/spring-clean-not-afraid-of-dirt.png"
+                            />
+                            <source
+                                    media="(max-width: 768px)"
+                                    srcset="images/spring-clean-not-afraid-of-dirt.png"
+                            />
+                            <img
+                                    src="images/spring-clean-not-afraid-of-dirt.png"
+                                    alt="Spring cleaning home services will take on any cleaning challenge!"
+                                    class="img-responsive"
+                            />
+                        </picture>
+                    </div>
                 </article>
             </section>
             <section class="row">
@@ -147,7 +153,8 @@
                             </div>
                         </fieldset>
                         <fieldset class="col-sm-5">
-                            <textarea class="form-control" rows="3"></textarea>
+                            <label for="contact-form-msg" aria-hidden="true">Your message</label>
+                            <textarea class="form-control" id="contact-form-msg" rows="3"></textarea>
                         </fieldset>
                         <fieldset class="col-sm-2">
                             <button type="submit" aria-label="submit" class="btn btn-default" role="button">Send</button>

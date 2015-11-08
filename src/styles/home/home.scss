@@ -17,8 +17,48 @@
       top: 10px;
     }
   }
+  .title-icon {
+    background: url("../../images/icon-gloves.png") no-repeat;
+    background-size: contain;
+  }
+  .title-text {
+    top: -10px;
+  }
   @media(max-width:768px) {
     padding: 5px;
+    top: -20px;
+  }
+}
+
+.make-it-shine {
+   position: relative;
+   top:0;
+   .inner {
+     @include container-inner($turquoise);
+     @include rounded-top;
+     border-bottom: 2px solid #fff;
+   }
+  .title-icon {
+    background: url("../../images/icon-spray-bottle.png") no-repeat;
+    background-size: contain;
+  }
+  .title-text {
+    top: -13px;
+  }
+ }
+
+.not-afraid {
+  position: relative;
+  top:0;
+  .inner {
+    @include container-inner(brown url("../../images/spring-clean-not-afraid-of-dirt-background.png") no-repeat 100%);
+    @include rounded-bottom;
+  }
+  .title-icon {
+    background: url("../../images/icon-splat.png") no-repeat;
+    background-size: contain;
+  }
+  .title-text {
     top: -20px;
   }
 }

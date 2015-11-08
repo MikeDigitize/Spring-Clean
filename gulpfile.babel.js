@@ -8,7 +8,7 @@ import sequence from "run-sequence";
 import imagemin from "gulp-imagemin";
 import rename from "gulp-rename";
 import webpack from "webpack";
-import { webpackConfig } from "./webpack.config"
+import { webpackConfig } from "./config.js"
 
 const DIRS = {
     src : "./src",
@@ -101,8 +101,8 @@ gulp.task("images", () => {
 
 gulp.task("watch", () => {
     gulp.watch(`${DIRS.src}${DIRS.styles}/*/**.+(css|scss)`, ["styles"]);
-    gulp.watch(`${DIRS.src}${DIRS.js}/*.js`, ["js"]);
+    //gulp.watch(`${DIRS.src}${DIRS.js}/*.js`, ["js"]);
     gulp.watch(`${DIRS.src}/*.html`, ["html"]);
 });
 
-gulp.task("default", ["styles", "js", "assets", "watch"]);
+gulp.task("default", ["styles", "assets", "watch"]);

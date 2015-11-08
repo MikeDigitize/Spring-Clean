@@ -9,6 +9,22 @@
 }
 
 body { font-family: "American Typewriter"; font-weight: normal }
+h2 {
+  margin: 30px auto;
+  color: #fff;
+  font-size: 42px;
+  .title-text {
+    position: relative;
+    @media(max-width:670px) {
+      font-size: 21px;
+    }
+  }
+}
+.title-icon {
+  width: 40px;
+  height: 55px;
+  display: inline-block;
+}
 
 @mixin clear-float {
   &:after {
@@ -55,8 +71,13 @@ body { font-family: "American Typewriter"; font-weight: normal }
 }
 
 @mixin rounded-bottom {
-  border-bottom-left-radius: 15%;
-  border-bottom-right-radius: 15%;
+  border-bottom-left-radius: 10%;
+  border-bottom-right-radius: 10%;
+}
+
+@mixin rounded-top {
+  border-top-left-radius: 10%;
+  border-top-right-radius: 10%;
 }
 
 @mixin hover($color) {
@@ -65,17 +86,18 @@ body { font-family: "American Typewriter"; font-weight: normal }
   }
 }
 
-@mixin container-inner($color) {
+@mixin container-inner($bk) {
   width: 90%;
   margin: auto;
-  background-color: $color;
-  padding: 10px 100px 50px;
+  background: $bk;
+  padding: 10px 100px 70px;
   position: relative;
   top: -20px;
   z-index: 1;
-  @media(max-width: 768px) {
+  @media(max-width: 990px) {
     width: 100%;
-    padding: 20px 30px 40px;
+    padding: 20px 30px 60px;
+    border-radius: 0%;
   }
 }
 @mixin no-select {
