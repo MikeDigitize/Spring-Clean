@@ -1,0 +1,76 @@
+@import "variables";
+@import "global";
+
+.header-nav {
+  background-color: $yellow;
+  padding: 15px;
+  position: relative;
+  top: -10px;
+  z-index: 2;
+  @include clear-float;
+  @include rounded-bottom;
+  @include no-select;
+  .nav-menu {
+    width: 75%;
+    margin: auto;
+    position: relative;
+    right: auto;
+    border: none;
+    &.show-menu {
+      @media (max-width: 990px) {
+        display: none;
+      }
+    }
+    .nav-item {
+      display: inline-block;
+      width: 23%;
+      text-align: center;
+      font-size: 18px;
+      a {
+        color: $red;
+        font-weight:normal;
+        @include animate-custom(color 1s ease, font-size 0.2s ease);
+        @include hover($red);
+      }
+    }
+    @media (max-width: 768px) {
+      display: none;
+      position: fixed;
+      right: -75%;
+      top: 0;
+      background: $yellow;
+    }
+  }
+  .mobile-menu-button {
+    font-size: 40px;
+    display: none;
+    float: right;
+    margin-right: 15%;
+    color: #fff;
+    cursor: pointer;
+    @media (max-width: 768px) {
+      display: block;
+    }
+  }
+}
+
+.show-menu {
+  right: -20px !important;
+  display: block !important;
+  &.nav-menu {
+    width: 30%;
+    padding: 20px 0 15px 10px;
+    line-height: 40px;
+    border: 1px solid #999;
+    border-right: none;
+    @include rounded-bottom;
+    @media(max-width:510px) {
+      width: 50%;
+    }
+  }
+  .nav-item {
+    display: block !important;
+    width: 70% !important;
+    text-align: left !important;
+  }
+}

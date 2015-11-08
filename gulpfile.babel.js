@@ -76,7 +76,7 @@ gulp.task("global-styles", () => {
 });
 
 gulp.task("global-js", () => {
-    webpack(webpackConfig("global", `${DIRS.src}${DIRS.js}/test.js`), (err, stats) => {
+    webpack(webpackConfig("global", `${DIRS.src}${DIRS.js}/global.js`), (err, stats) => {
         if(err) {
             console.log(err);
         }
@@ -100,9 +100,9 @@ gulp.task("images", () => {
 });
 
 gulp.task("watch", () => {
-    gulp.watch(`${DIRS.src}${DIRS.styles}/*/**.+(css|scss)`, ["styles", "images"]);
-    gulp.watch(`${DIRS.src}${DIRS.js}/*.js`, ["js", "images"]);
-    gulp.watch(`${DIRS.src}/*.html`, ["html", "images"]);
+    gulp.watch(`${DIRS.src}${DIRS.styles}/*/**.+(css|scss)`, ["styles"]);
+    gulp.watch(`${DIRS.src}${DIRS.js}/*.js`, ["js"]);
+    gulp.watch(`${DIRS.src}/*.html`, ["html"]);
 });
 
 gulp.task("default", ["styles", "js", "assets", "watch"]);

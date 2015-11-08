@@ -9,10 +9,67 @@
 }
 
 body { font-family: "American Typewriter"; font-weight: normal }
+
 @mixin clear-float {
   &:after {
     display: table;
     content: "";
     clear: both;
   }
+}
+
+@mixin icon($url) {
+  display: block;
+  position: absolute;
+  width:75px;
+  height: 76px;
+  background: url($url) no-repeat 100% 100%;
+  border-radius: 50%;
+  @media(max-width:990px) {
+    display: none;
+  }
+  &:hover {
+    filter: saturate(2);
+    box-shadow: 1px 1px 10px rgba(0,0,0,.4);
+  }
+}
+
+@mixin animate-fast {
+  transition: 0.3s linear all;
+}
+
+@mixin animate-slow {
+  transition: 1s ease-out all;
+}
+
+@mixin animate-custom($args...) {
+  transition: $args;
+}
+
+@mixin rounded-bottom {
+  border-bottom-left-radius: 15%;
+  border-bottom-right-radius: 15%;
+}
+
+@mixin hover($color) {
+  &:hover {
+    color : darken($color, 10%);
+    text-decoration: none;
+  }
+}
+
+@mixin container-inner($color) {
+  width: 90%;
+  margin: auto;
+  background-color: $color;
+  padding: 10px 100px 50px;
+  position: relative;
+  top: -20px;
+  z-index: 1;
+  @media(max-width: 768px) {
+    width: 100%;
+  }
+}
+@mixin no-select {
+  user-select: none;
 }

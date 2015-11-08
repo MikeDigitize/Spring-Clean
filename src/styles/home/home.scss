@@ -1,5 +1,18 @@
 @import "../global/variables";
+@import "../global/global";
 
 .about-us {
-  background-color: $red;
+  color: #fff;
+  font-size: 16px;
+  line-height: 25px;
+  .inner {
+    @include container-inner($red);
+    @include rounded-bottom;
+
+    strong {
+      font-size: 18px;
+      position: relative;
+      top: 10px;
+    }
+  }
 }

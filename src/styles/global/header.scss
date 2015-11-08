@@ -1,13 +1,20 @@
 @import "../global/global";
+@import "../global/variables";
 
 .header {
   padding: 0 5px 5px;
   .header-background {
+    * {
+      @include animate-fast;
+    }
     background: url(../../images/header-background.png) center top no-repeat;
     color: #fff;
     text-align: center;
     background-size: 100% 100%;
+    position: relative;
+    z-index: 2;
     @include clear-float;
+    @include animate-slow;
     @media(max-width:990px) {
       background-size: cover;
       background-position: 3% 10%;
@@ -24,22 +31,74 @@
         font-size: 20px;
         text-align: right;
         margin-right: 22%;
+        @media(max-width:510px){
+          margin-right: 10%;
+          margin-bottom: 5%;
+        }
       }
       @media(max-width: 990px) {
         margin: 0 0% auto auto;
       }
+      @media(max-width: 670px) {
+        font-size: 50px;
+        padding-top: 10px;
+      }
     }
     .header-telephone-numbers {
       text-align: left;
-      padding: 2% 0 2% 4%;
+      padding: 2% 0 2% 7%;
       line-height: 8px;
       .main-number {
         font-size: 25px;
+        @media(max-width: 670px) {
+          font-size: 18px;
+        }
       }
       .additional-number {
         padding-top: 5px;
         margin-bottom: 10px;
       }
+      @media(max-width:1200px) {
+        padding: 2% 0 2% 5%;
+      }
+      @media(max-width:990px) {
+        padding: 2% 0 2% 8%;
+      }
+      @media(max-width:768px) {
+        padding: 2% 0 2% 13%;
+      }
+      @media(max-width: 670px) {
+        padding: 2% 0 2% 9%;
+      }
+      @media(max-width: 510px) {
+        padding: 2% 0 2% 6%;
+      }
+    }
+    .icon-phone {
+      @include icon("../../images/icon-phone.png");
+      left: 13%;
+      @media(max-width:1200px){
+        left:10%;
+      }
+    }
+    .icon-twitter {
+      @include icon("../../images/icon-twitter.png");
+      right: 22%;
+    }
+    .icon-facebook {
+      @include icon("../../images/icon-facebook.png");
+      right: 13%;
     }
   }
+}
+
+.header-tagline {
+  background-color: $cream;
+  text-align: center;
+  color: #999;
+  font-size: 20px;
+  position: relative;
+  padding: 20px 10px 10px;
+  z-index: 1;
+  top: -10px;
 }
