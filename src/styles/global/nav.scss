@@ -65,6 +65,7 @@
   }
 
   .header-nav-icon-holder {
+    position: relative;
     @include animate-custom(10ms opacity linear);
 
     .icon-phone {
