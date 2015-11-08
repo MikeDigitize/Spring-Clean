@@ -48,11 +48,6 @@ body { font-family: "American Typewriter"; font-weight: normal }
     float: left;
     margin-right: 20px;
   }
-  //@media(max-width:670px) {
-  //  top: 242px;
-  //  width:45px;
-  //  height: 45px;
-  //}
   &:hover {
     filter: saturate(2);
     box-shadow: 1px 1px 10px rgba(0,0,0,.4);

@@ -105,4 +105,4 @@ gulp.task("watch", () => {
     gulp.watch(`${DIRS.src}/*.html`, ["html"]);
 });
 
-gulp.task("default", ["styles", "js", "assets", "watch"]);
+gulp.task("default", ["js", "watch"]);

@@ -1,3 +1,4 @@
+import Animator from "./animator.min";
 import "./classList.min";
 
 export function navControls() {
@@ -5,18 +6,18 @@ export function navControls() {
     let nav = document.querySelector(".nav-menu");
     let menuBtn = document.querySelector(".mobile-menu-button");
     let isMenuActive = () => nav.classList.contains("show-menu");
+    let animationSupport = Animator.isSupported();
 
     let toggleMenu = () => {
         setTimeout(() => {
             if(isMenuActive()) {
-                removeBodyListener();
-                addMobileMenuListener();
+                onMenuInactive();
+                animateOut();
             }
             else {
-                addBodyListener();
-                removeMobileMenuListener()
+                onMenuActive();
+                animateIn();
             }
-            nav.classList.toggle("show-menu");
         }, 0);
     };
 
@@ -36,11 +37,73 @@ export function navControls() {
         document.addEventListener("click", toggleMenu, false);
     }
 
+    function onMenuInactive() {
+        removeBodyListener();
+        addMobileMenuListener();
+    }
+
+    function onMenuActive() {
+        addBodyListener();
+        removeMobileMenuListener();
+    }
+
+    function animateIn() {
+        if(animationSupport) {
+            let animation = Animator.transition({
+                element : nav,
+                properties : "right",
+                setStyles : {
+                    before : {
+                        right : "-7%"
+                    }
+                }
+            });
+            animation.then(()=> {
+                toggle();
+            });
+        }
+        else {
+            Animator.setStyles(nav, { right : "-7%"});
+            toggle();
+        }
+
+    }
+
+    function animateOut(){
+
+        if(animationSupport) {
+            let animation = Animator.transition({
+                element : nav,
+                properties : "right",
+                setStyles : {
+                    before : {
+                        right : "-75%"
+                    }
+                }
+            });
+
+            animation.then(()=> {
+                toggle();
+            });
+        }
+        else {
+            Animator.setStyles(nav, { right : "-75%" });
+            toggle();
+        }
+
+    }
+
+    function toggle(){
+        nav.classList.toggle("show-menu");
+    }
+
     addMobileMenuListener();
 
     return {
+        nav,
         isMenuActive,
-        toggleMenu
+        onMenuInactive,
+        toggle
     };
 
 }
