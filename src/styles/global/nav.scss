@@ -10,13 +10,16 @@
   @include clear-float;
   @include rounded-bottom;
   @include no-select;
+  @include animate-fast;
   .nav-menu {
     width: 75%;
     margin: auto;
     position: relative;
     right: auto;
     border: none;
-    @include animate-custom(right 0.1s ease-out);
+    z-index: 6;
+    padding: auto;
+    @include animate-custom(transform 0.1s ease-out);
     .nav-item {
       display: inline-block;
       width: 23%;
@@ -33,6 +36,9 @@
         width: 70% !important;
         text-align: left !important;
       }
+      @media (max-width: 768px) {
+        width: 85%!important;
+      }
     }
     .glyphicon {
       display: none;
@@ -48,14 +54,17 @@
       right: -75%;
       top: 0;
       background: $yellow;
-      width: 30%;
+      width: 40%;
       padding: 20px 0 22px 10px;
       line-height: 40px;
       border: 1px solid #999;
       border-right: none;
       @include rounded-bottom;
+      @media (max-width: 768px) {
+        padding-left: 0;
+      }
       @media(max-width:510px) {
-        width: 50%;
+        width: 60%;
       }
     }
 

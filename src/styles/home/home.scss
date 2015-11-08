@@ -7,14 +7,16 @@
   line-height: 25px;
   position: relative;
   top:0;
+  @include animate-fast;
   .inner {
     @include container-inner($red);
     @include rounded-bottom;
 
     strong {
-      font-size: 18px;
+      font-size: 20px;
       position: relative;
       top: 10px;
+      font-weight: normal;
     }
   }
   .title-icon {

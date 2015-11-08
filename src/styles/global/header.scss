@@ -48,6 +48,10 @@
       text-align: left;
       padding: 2% 0 2% 7%;
       line-height: 8px;
+      a {
+        color: #fff;
+        @include hover(#fff)
+      }
       .main-number {
         font-size: 25px;
         line-height: 25px;
