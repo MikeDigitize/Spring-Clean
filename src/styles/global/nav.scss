@@ -60,6 +60,33 @@
     cursor: pointer;
     @media (max-width: 990px) {
       display: block;
+      margin-right: 1%;
     }
+  }
+
+  .header-nav-icon-holder {
+    @include animate-custom(10ms opacity linear);
+
+    .icon-phone {
+      @include icon("../../images/icon-phone.png");
+      left: 13%;
+    }
+    .icon-twitter {
+      @include icon("../../images/icon-twitter.png");
+      right: 22%;
+    }
+    .icon-facebook {
+      @include icon("../../images/icon-facebook.png");
+      right: 13%;
+    }
+
+    @media(min-width: 990px) {
+      opacity: 0;
+    }
+
+    @media(max-width: 990px) {
+      opacity: 1;
+    }
+
   }
 }
