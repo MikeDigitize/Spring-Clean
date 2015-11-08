@@ -5,6 +5,8 @@
   color: #fff;
   font-size: 16px;
   line-height: 25px;
+  position: relative;
+  top:0;
   .inner {
     @include container-inner($red);
     @include rounded-bottom;
@@ -14,5 +16,9 @@
       position: relative;
       top: 10px;
     }
+  }
+  @media(max-width:768px) {
+    padding: 5px;
+    top: -20px;
   }
 }

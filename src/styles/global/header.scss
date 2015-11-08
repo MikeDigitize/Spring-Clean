@@ -74,22 +74,60 @@
         padding: 2% 0 2% 6%;
       }
     }
-    .icon-phone {
-      @include icon("../../images/icon-phone.png");
-      left: 13%;
-      @media(max-width:1200px){
-        left:10%;
-      }
-    }
-    .icon-twitter {
-      @include icon("../../images/icon-twitter.png");
-      right: 22%;
-    }
-    .icon-facebook {
-      @include icon("../../images/icon-facebook.png");
-      right: 13%;
+  }
+}
+
+.icon-holder {
+  position: static;
+  @include animate-fast;
+
+  .icon-phone {
+    @include icon("../../images/icon-phone.png");
+    left: 13%;
+    @media(max-width:1200px){
+      left:10%;
     }
   }
+  .icon-twitter {
+    @include icon("../../images/icon-twitter.png");
+    right: 22%;
+  }
+  .icon-facebook {
+    @include icon("../../images/icon-facebook.png");
+    right: 13%;
+  }
+
+  @media(max-width: 990px) {
+    position: absolute;
+    z-index: 3;
+    top: 287px;
+    left: 19%;
+  }
+
+  @media(max-width: 768px) {
+    left: 4%;
+  }
+
+  @media(max-width: 670px) {
+    top: 245px;
+  }
+
+  @media(max-width: 510px) {
+    top: 260px;
+  }
+
+  @media(max-width: 430px) {
+    top: 255px;
+  }
+
+  @media(max-width: 342px) {
+    top: 277px;
+  }
+
+  @media(max-width: 336px) {
+    top: 298px;
+  }
+
 }
 
 .header-tagline {

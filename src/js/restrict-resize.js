@@ -1,11 +1,21 @@
 import { debounce } from "./debounce";
-import { navControls } from "./mobile-nav-controls";
 
-let resizeControl = debounce();
-let nav = navControls();
-function onResize() {
-    if(window.innerWidth > 768 && nav.isMenuActive()) {
-        nav.toggleMenu();
+export function onWindowResize(nav) {
+
+    let resizeControl = debounce();
+    let windowWidth = window.innerWidth;
+
+    function onResize() {
+        if(window.innerWidth > 990 && nav.isMenuActive()) {
+            nav.toggleMenu();
+        }
+        windowWidth = window.innerWidth;
     }
+
+    window.addEventListener("resize", resizeControl(onResize, 50));
+
+    return function () {
+        return { windowWidth };
+    }
+
 }
-window.addEventListener("resize", resizeControl(onResize, 150));

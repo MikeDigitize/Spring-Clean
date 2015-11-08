@@ -18,22 +18,6 @@ body { font-family: "American Typewriter"; font-weight: normal }
   }
 }
 
-@mixin icon($url) {
-  display: block;
-  position: absolute;
-  width:75px;
-  height: 76px;
-  background: url($url) no-repeat 100% 100%;
-  border-radius: 50%;
-  @media(max-width:990px) {
-    display: none;
-  }
-  &:hover {
-    filter: saturate(2);
-    box-shadow: 1px 1px 10px rgba(0,0,0,.4);
-  }
-}
-
 @mixin animate-fast {
   transition: 0.3s linear all;
 }
@@ -46,6 +30,35 @@ body { font-family: "American Typewriter"; font-weight: normal }
   transition: $args;
 }
 
+@mixin icon($url) {
+  @include animate-fast;
+  display: block;
+  position: absolute;
+  top: 130px;
+  z-index: 3;
+  width:75px;
+  height: 76px;
+  background: url($url) no-repeat;
+  background-size: contain;
+  border-radius: 50%;
+  @media(max-width:990px) {
+    width:45px;
+    height: 45px;
+    position: static;
+    float: left;
+    margin-right: 20px;
+  }
+  //@media(max-width:670px) {
+  //  top: 242px;
+  //  width:45px;
+  //  height: 45px;
+  //}
+  &:hover {
+    filter: saturate(2);
+    box-shadow: 1px 1px 10px rgba(0,0,0,.4);
+  }
+}
+
 @mixin rounded-bottom {
   border-bottom-left-radius: 15%;
   border-bottom-right-radius: 15%;
@@ -54,7 +67,6 @@ body { font-family: "American Typewriter"; font-weight: normal }
 @mixin hover($color) {
   &:hover {
     color : darken($color, 10%);
-    text-decoration: none;
   }
 }
 
@@ -68,6 +80,7 @@ body { font-family: "American Typewriter"; font-weight: normal }
   z-index: 1;
   @media(max-width: 768px) {
     width: 100%;
+    padding: 20px 30px 40px;
   }
 }
 @mixin no-select {

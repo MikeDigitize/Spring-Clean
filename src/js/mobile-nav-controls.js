@@ -1,3 +1,5 @@
+import "./classList.min";
+
 export function navControls() {
 
     let nav = document.querySelector(".nav-menu");

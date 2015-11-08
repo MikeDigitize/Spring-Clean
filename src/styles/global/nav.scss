@@ -16,8 +16,9 @@
     position: relative;
     right: auto;
     border: none;
+    @include animate-custom(right 0.1s ease-out);
     &.show-menu {
-      @media (max-width: 990px) {
+      @media (max-width: 1200px) {
         display: none;
       }
     }
@@ -33,8 +34,7 @@
         @include hover($red);
       }
     }
-    @media (max-width: 768px) {
-      display: none;
+    @media (max-width: 990px) {
       position: fixed;
       right: -75%;
       top: 0;
@@ -48,14 +48,14 @@
     margin-right: 15%;
     color: #fff;
     cursor: pointer;
-    @media (max-width: 768px) {
+    @media (max-width: 990px) {
       display: block;
     }
   }
 }
 
 .show-menu {
-  right: -20px !important;
+  right: -7% !important;
   display: block !important;
   &.nav-menu {
     width: 30%;
