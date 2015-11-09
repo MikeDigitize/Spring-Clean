@@ -47,6 +47,10 @@
   .title-text {
     top: -13px;
   }
+  @media(max-width:768px) {
+    padding: 5px;
+    top: -30px;
+  }
  }
 
 .not-afraid {
@@ -62,5 +66,9 @@
   }
   .title-text {
     top: -20px;
+  }
+  @media(max-width:768px) {
+    padding: 5px;
+    top: -45px;
   }
 }

@@ -101,8 +101,8 @@ gulp.task("images", () => {
 
 gulp.task("watch", () => {
     gulp.watch(`${DIRS.src}${DIRS.styles}/*/**.+(css|scss)`, ["styles"]);
-    //gulp.watch(`${DIRS.src}${DIRS.js}/*.js`, ["js"]);
+    gulp.watch(`${DIRS.src}${DIRS.js}/*.js`, ["js"]);
     gulp.watch(`${DIRS.src}/*.html`, ["html"]);
 });
 
-gulp.task("default", ["styles", "assets", "watch"]);
+gulp.task("default", ["styles", "assets", "js", "watch"]);

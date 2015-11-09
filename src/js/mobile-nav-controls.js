@@ -112,32 +112,41 @@ export function navControls() {
     function addOverlay() {
         nav.parentNode.classList.toggle("mobile-nav-open");
         document.body.insertBefore(overlay, document.body.firstChild);
-        Animator.transition({
-            element : overlay,
-            properties : "opacity",
-            setStyles : {
-                before : {
-                    opacity : 1
+        if(animationSupport) {
+            Animator.transition({
+                element : overlay,
+                properties : "opacity",
+                setStyles : {
+                    before : {
+                        opacity : 1
+                    }
                 }
-            }
-        });
+            });
+        }
+        else {
+            Animator.setStyles(overlay, { opacity : 1} );
+        }
     }
 
     function removeOverlay() {
-        nav.parentNode.classList.toggle("mobile-nav-open")
-        let add = Animator.transition({
-            element : overlay,
-            properties : "opacity",
-            setStyles : {
-                before : {
-                    opacity : 0
+        nav.parentNode.classList.toggle("mobile-nav-open");
+        if(animationSupport) {
+            let add = Animator.transition({
+                element : overlay,
+                properties : "opacity",
+                setStyles : {
+                    before : {
+                        opacity : 0
+                    }
                 }
-            }
-        });
-        add.then(() => {
+            });
+            add.then(() => {
+                overlay.parentNode.removeChild(overlay);
+            });
+        }
+        else {
             overlay.parentNode.removeChild(overlay);
-        });
-
+        }
     }
 
     addMobileMenuListener();

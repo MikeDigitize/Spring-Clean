@@ -48,9 +48,47 @@
       text-align: left;
       padding: 2% 0 2% 7%;
       line-height: 8px;
+      @include animate-fast;
       a {
         color: #fff;
         @include hover(#fff)
+      }
+      .phone-helper {
+        width: 145px;
+        height: 70px;
+        padding: 10px;
+        background: #fff;
+        position: absolute;
+        z-index: 10;
+        left: 280px;
+        color: #999;
+        font-size: 14px;
+        line-height: 16px;
+        opacity: 0;
+        border-radius: 5%;
+        .arrow-left {
+          position: absolute;
+          bottom: 10px;
+          left: -13px;
+          width: 0;
+          height: 0;
+          border-top: 15px solid rgba(0, 0, 0, 0);
+          border-bottom: 15px solid rgba(0, 0, 0, 0);
+          border-right: 15px solid #fff;
+        }
+        @media(max-width:768px) {
+          left: 305px;
+        }
+        @media(max-width:670px) {
+          left: 210px;
+        }
+        @media(max-width: 410px) {
+          left: 175px;
+        }
+        @media(max-width: 365px) {
+          width: 116px;
+          height: 87px;
+        }
       }
       .main-number {
         font-size: 25px;
