@@ -54,13 +54,13 @@
 }
 
 @mixin rounded-bottom {
-  border-bottom-left-radius: 10%;
-  border-bottom-right-radius: 10%;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
 }
 
 @mixin rounded-top {
-  border-top-left-radius: 10%;
-  border-top-right-radius: 10%;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
 }
 
 @mixin hover($color) {

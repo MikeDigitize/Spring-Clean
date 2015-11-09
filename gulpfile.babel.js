@@ -77,9 +77,7 @@ gulp.task("global-styles", () => {
 
 gulp.task("global-js", () => {
     webpack(webpackConfig("global", `${DIRS.src}${DIRS.js}/global.js`), (err, stats) => {
-        if(err) {
-            console.log(err);
-        }
+        if(err) { console.log(err); }
     });
 });
 
