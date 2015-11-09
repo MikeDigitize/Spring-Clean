@@ -110,10 +110,7 @@ export function telControls(con, trig) {
                 Animator.setStyles(helper, { opacity : 0 });
             }
         }
-        else {
-            console.log("target", target);
-            window.location = target.href;
-        }
+
     }
 
     addTriggerHandlers();

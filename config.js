@@ -22,7 +22,6 @@ export function webpackConfig(name, src) {
                 loader: "babel-loader"
             }]
         },
-        watch : true,
         plugins:[new uglify()]
     };
 }

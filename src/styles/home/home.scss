@@ -47,6 +47,19 @@
   .title-text {
     top: -13px;
   }
+  .img-centred {
+    @media(max-width: 510px) {
+      display: block;
+      width: 90%;
+      margin: 0 auto 20px;
+    }
+  }
+  .make-it-shine-mobile-img {
+    display: none;
+    @media(max-width: 510px) {
+      display: block;
+    }
+  }
   @media(max-width:768px) {
     padding: 5px;
     top: -30px;
@@ -57,8 +70,9 @@
   position: relative;
   top:0;
   .inner {
-    @include container-inner(brown url("../../images/spring-clean-not-afraid-of-dirt-background.png") no-repeat 100%);
+    @include container-inner(brown url("../../images/spring-clean-not-afraid-of-dirt-background.png") no-repeat);
     @include rounded-bottom;
+    background-size: cover;
   }
   .title-icon {
     background: url("../../images/icon-splat.png") no-repeat;
@@ -66,6 +80,19 @@
   }
   .title-text {
     top: -20px;
+  }
+  .img-centred {
+    @media(max-width: 510px) {
+      display: block;
+      width: 90%;
+      margin: 0 auto 20px;
+    }
+  }
+  .not-afraid-mobile-img {
+    display: none;
+    @media(max-width: 510px) {
+      display: block;
+    }
   }
   @media(max-width:768px) {
     padding: 5px;

@@ -32,6 +32,19 @@ const PATHS = {
     retinaDest : `${DIRS.dest}${DIRS.images}${DIRS.retina}`
 };
 
+let compiler = webpack(webpackConfig("global", `${DIRS.src}${DIRS.js}/global.js`));
+compiler.watch({
+    aggregateTimeout: 100,
+    poll: true
+}, (err, stats) => {
+   if(err) {
+       console.log(err);
+   }
+   else {
+       console.log("webpack finished");
+   }
+});
+
 let styles = (src, dest, name) => {
     return gulp.src(`${src}/*.+(scss|css)`)
         .pipe(changed(dest))
@@ -75,12 +88,6 @@ gulp.task("global-styles", () => {
     return styles(PATHS.globalSrc, PATHS.globalDest, "global.css");
 });
 
-gulp.task("global-js", () => {
-    webpack(webpackConfig("global", `${DIRS.src}${DIRS.js}/global.js`), (err, stats) => {
-        if(err) { console.log(err); }
-    });
-});
-
 gulp.task("styles", () => {
     return sequence("global-styles", "home-styles");
 });
@@ -89,18 +96,13 @@ gulp.task("assets", () => {
     return sequence("html", "fonts", "images");
 });
 
-gulp.task("js", () => {
-    return sequence("global-js");
-});
-
 gulp.task("images", () => {
     return sequence("optimise-images", "retina");
 });
 
 gulp.task("watch", () => {
     gulp.watch(`${DIRS.src}${DIRS.styles}/*/**.+(css|scss)`, ["styles"]);
-    gulp.watch(`${DIRS.src}${DIRS.js}/*.js`, ["js"]);
     gulp.watch(`${DIRS.src}/*.html`, ["html"]);
 });
 
-gulp.task("default", ["styles", "assets", "js", "watch"]);
+gulp.task("default", ["styles", "assets", "watch"]);
