@@ -34,7 +34,7 @@
 
 .make-it-shine {
    position: relative;
-   top:0;
+   top:25px;
    .inner {
      @include container-inner($turquoise);
      @include rounded-top;

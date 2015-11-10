@@ -1,0 +1,65 @@
+@import "variables";
+@import "global";
+
+.message-us {
+  position: relative;
+  top:25px;
+  .inner {
+    @include container-inner(#9abd5d);
+    @include rounded-top;
+    @include rounded-bottom;
+    @include clear-float;
+    @include animate-fast;
+    @extend .green-gradient;
+  }
+  .title-icon {
+    background: url("../../images/icon-message.png") no-repeat;
+    background-size: contain;
+    width: 68px;
+    height: 88px;
+    @media(max-width:670px) {
+      width: 42px;
+      height: 62px;
+    }
+  }
+  .title-text {
+    top: -20px;
+  }
+  label {
+    display: none;
+  }
+  input, textarea, button {
+    font-size: 16px;
+  }
+  textarea {
+    min-height: 180px;
+  }
+  .submit-btn {
+    @include animate-fast;
+    width: 100px;
+    min-height: 180px;
+    background-color: $green;
+    border: none;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    &:active:focus, :visited:focus, :active {
+      background-color: lighten($green, 15%);
+      border: none;
+      outline: none;
+    }
+    &:hover {
+      background-color: darken($green, 15%);
+    }
+    @media(max-width:768px) {
+      max-width: 250px;
+      width: 80%;
+      margin: auto;
+      display: block;
+      margin-top: 20px;
+      min-height: 75px;
+    }
+  }
+  @media(max-width:768px) {
+    padding: 5px;
+    top: -60px;
+  }
+}
