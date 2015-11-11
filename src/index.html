@@ -16,7 +16,7 @@
                         <div class="screen-overlay"></div>
                         <h1>Spring clean <span class="subtitle">Professional cleaning service</span></h1>
                         <div class="col-sm-4 col-sm-offset-2 header-telephone-numbers">
-                            <div class="phone-helper">
+                            <div class="phone-helper" aria-hidden="true">
                                 <p>If you're using mobile, click a number to call us!</p>
                                 <div class="arrow-left"></div>
                             </div>
@@ -141,8 +141,12 @@
             <div class="row">
                 <article class="message-us col-xs-12">
                     <section class="inner">
+                        <div class="form-helper" aria-hidden="true">
+                            <p class="form-helper-msg">Whoops the form is no good!</p>
+                            <div class="arrow-down"></div>
+                        </div>
                         <h2 id="message-us-title"><span class="title-icon"></span> <span class="title-text">Message us</span></h2>
-                        <form aria-labelledby="message-us-title">
+                        <form aria-labelledby="message-us-title" id="message-us-form" novalidate>
                             <fieldset class="col-sm-5">
                                 <div class="form-group">
                                     <label for="contact-form-name" aria-hidden="true">Name</label>
@@ -157,14 +161,14 @@
                                     >
                                 </div>
                                 <div class="form-group">
-                                    <label for="contact-form-company" aria-hidden="true">Company</label>
+                                    <label for="contact-form-location" aria-hidden="true">Company</label>
                                     <input
                                             type="text"
                                             aria-required="false"
                                             pattern="[a-zA-Z]+"
                                             class="form-control"
-                                            id="contact-form-company"
-                                            placeholder="Company"
+                                            id="contact-form-location"
+                                            placeholder="Location"
                                     >
                                 </div>
                                 <div class="form-group">
@@ -172,10 +176,10 @@
                                     <input
                                             type="email"
                                             aria-required="true"
-                                            pattern="/[^\s]*@[a-z0-9.-]*/i"
                                             class="form-control"
                                             id="contact-form-email"
                                             placeholder="Email"
+                                            pattern="[^ @]*@[^ @]*"
                                             required
                                     >
                                 </div>
@@ -194,10 +198,16 @@
                             </fieldset>
                             <fieldset class="col-sm-5">
                                 <label for="contact-form-msg" aria-hidden="true">Your message</label>
-                                <textarea class="form-control" id="contact-form-msg" placeholder="Message" rows="3"></textarea>
+                                <textarea class="form-control" id="contact-form-msg" required placeholder="Message" rows="3" maxlength="500" aria-required="true"></textarea>
                             </fieldset>
                             <fieldset class="col-sm-2">
-                                <button type="submit" aria-label="submit" class="btn btn-default submit-btn" role="button">Send</button>
+                                <button
+                                        type="submit"
+                                        aria-label="submit"
+                                        class="btn btn-default submit-btn"
+                                        role="button">
+                                    Send
+                                </button>
                             </fieldset>
                         </form>
                     </section>

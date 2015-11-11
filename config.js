@@ -21,7 +21,6 @@ export function webpackConfig(name, src) {
                 exclude: /node_modules/,
                 loader: "babel-loader"
             }]
-        },
-        plugins:[new uglify()]
+        }
     };
 }

@@ -25,6 +25,13 @@
   .title-text {
     top: -20px;
   }
+  .form-helper {
+    @include helper;
+    width: 220px;
+    height: 70px;
+    top: 0;
+    left: 0;
+  }
   label {
     display: none;
   }

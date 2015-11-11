@@ -77,6 +77,7 @@
   position: relative;
   top: -20px;
   z-index: 1;
+  overflow: hidden;
   @media(max-width: 990px) {
     width: 100%;
     padding: 20px 30px 60px;
@@ -95,6 +96,39 @@
   z-index: 5;
   opacity: 0;
   @include animate-custom(0.5s ease-in opacity)
+}
+
+@mixin helper {
+  padding: 10px;
+  background: #fff;
+  position: absolute;
+  z-index: 10;
+  color: #999;
+  font-size: 14px;
+  line-height: 16px;
+  opacity: 0;
+  border-radius: 5%;
+  @include animate-custom(opacity 1s ease);
+  .arrow-left {
+    position: absolute;
+    bottom: 10px;
+    left: -13px;
+    width: 0;
+    height: 0;
+    border-top: 15px solid rgba(0, 0, 0, 0);
+    border-bottom: 15px solid rgba(0, 0, 0, 0);
+    border-right: 15px solid #fff;
+  }
+  .arrow-down {
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-top: 15px solid #fff;
+    border-left: 15px solid rgba(0, 0, 0, 0);
+    border-right: 15px solid rgba(0, 0, 0, 0);
+  }
 }
 
 body { font-family: "American Typewriter"; font-weight: normal }
