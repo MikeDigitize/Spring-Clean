@@ -13,7 +13,7 @@ export default class MessageUs {
         this.animationSupport = Animator.isSupported();
         this.hideOverlayHandler = this.hideOverlay.bind(this);
         this.isHTML5supported = typeof document.createElement("input").placeholder !== "undefined";
-        console.log("isHTML5supported", this.isHTML5supported);
+        this.isHelperDisplayed = false;
     }
 
     static createOverlay() {
@@ -28,7 +28,7 @@ export default class MessageUs {
         let helperPos = this.helper.getBoundingClientRect();
         return {
             top : (inputPos.top - parentPosy.top) - (helperPos.height + 10),
-            left : (inputPos.left - parentPosy.left)
+            left : (inputPos.left - parentPosy.left) - 25
         };
     }
 
@@ -78,7 +78,6 @@ export default class MessageUs {
                 })
             ]);
             animate.then(() => {
-                console.log("hello!!");
                 this.removeOverlay();
             });
         }
@@ -94,6 +93,7 @@ export default class MessageUs {
             top : position.top + "px",
             left : position.left + "px"
         });
+        this.isHelperDisplayed = true;
         if(this.animationSupport) {
             Animator.transition({
                 element : this.helper,
@@ -112,6 +112,7 @@ export default class MessageUs {
 
     removeOverlay() {
         this.overlay.parentNode.removeChild(this.overlay);
+        this.isHelperDisplayed = false;
     }
 
     addBodyListener() {
@@ -127,21 +128,37 @@ export default class MessageUs {
             let value = input.value;
             let rules = MessageUs.validation[input.id];
             let func = MessageUs.validation[input.id].func ? MessageUs.validation[input.id].func : () => false;
-            if(func()) {
-                return false;
-            }
-            else {
-                console.log(rules.regex.test(value), value);
-                return !rules.regex.test(value);
-            }
+            return !func() && !rules.regex.test(value);
         });
         if(invalid.length) {
             this.showValidationMsg(invalid);
-            console.log(invalid);
         }
         else {
-            console.log("all valid!")
+            this.checkNonRequired();
         }
+    }
+
+    checkNonRequired() {
+        let invalid = this.nonRequiredInputs.filter(input => {
+            let value = input.value;
+            let rules = MessageUs.validation[input.id];
+            return value.length && !rules.regex.test(value);
+        });
+        if(invalid.length) {
+            this.showValidationMsg(invalid);
+        }
+        else {
+            this.onValid();
+            this.showOverlay();
+            this.showHelper(document.querySelector("#contact-form-submit"));
+            console.log("all valid!");
+            this.requiredInputs.forEach(input => console.log(input.id, input.value));
+            this.nonRequiredInputs.forEach(input => console.log(input.id, input.value));
+        }
+    }
+
+    onValid() {
+        this.setHelperText("Great thanks, we'll get back in touch with you as soon as we can in the next 24 hours!");
     }
 
     showValidationMsg(invalid) {
@@ -186,6 +203,6 @@ MessageUs.validation["contact-form-phone"] = {
     }
 };
 MessageUs.validation["contact-form-msg"] = {
-    regex : /[a-zA-Z\s+]{10,500}/,
+    regex : /[a-zA-Z0-9\s+]{10,500}/,
     msg : "Leave us a little message here telling us how you think we can help!"
 };

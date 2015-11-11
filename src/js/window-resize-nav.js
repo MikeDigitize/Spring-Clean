@@ -1,6 +1,6 @@
 import { debounce } from "./debounce";
 
-export function onWindowResize(nav) {
+export function onWindowResizeNav(nav) {
 
     let resizeControl = debounce();
     let windowWidth = window.innerWidth;
@@ -16,10 +16,6 @@ export function onWindowResize(nav) {
         windowWidth = window.innerWidth;
     }
 
-    window.addEventListener("resize", resizeControl(onResize, 50));
-
-    return function () {
-        return { windowWidth };
-    }
+    window.addEventListener("resize", resizeControl(onResize, 50));//9yb3n
 
 }

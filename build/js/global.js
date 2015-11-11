@@ -46,7 +46,9 @@
 
 	"use strict";
 
-	var _restrictResize = __webpack_require__(1);
+	var _windowResizeNav = __webpack_require__(12);
+
+	var _windowResizeContact = __webpack_require__(13);
 
 	var _mobileNavControls = __webpack_require__(3);
 
@@ -64,46 +66,13 @@
 
 	var nav = (0, _mobileNavControls.navControls)();
 	var tel = (0, _telControls.telControls)(".header-background", ".icon-phone");
-	var resize = (0, _restrictResize.onWindowResize)(nav);
 	var form = new _contactForm2.default();
+	console.log(form);
+	(0, _windowResizeNav.onWindowResizeNav)(nav);
+	(0, _windowResizeContact.onWindowResizeContact)(form);
 
 /***/ },
-/* 1 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.onWindowResize = onWindowResize;
-
-	var _debounce = __webpack_require__(2);
-
-	function onWindowResize(nav) {
-
-	    var resizeControl = (0, _debounce.debounce)();
-	    var windowWidth = window.innerWidth;
-
-	    function onResize() {
-	        if (window.innerWidth > 990) {
-	            if (nav.isMenuActive()) {
-	                nav.toggle();
-	                nav.onMenuInactive();
-	            }
-	            nav.nav.removeAttribute("style");
-	        }
-	        windowWidth = window.innerWidth;
-	    }
-
-	    window.addEventListener("resize", resizeControl(onResize, 50));
-
-	    return function () {
-	        return { windowWidth: windowWidth };
-	    };
-	}
-
-/***/ },
+/* 1 */,
 /* 2 */
 /***/ function(module, exports) {
 
@@ -2131,7 +2100,7 @@
 	        this.animationSupport = _animator2.default.isSupported();
 	        this.hideOverlayHandler = this.hideOverlay.bind(this);
 	        this.isHTML5supported = typeof document.createElement("input").placeholder !== "undefined";
-	        console.log("isHTML5supported", this.isHTML5supported);
+	        this.isHelperDisplayed = false;
 	    }
 
 	    _createClass(MessageUs, [{
@@ -2142,7 +2111,7 @@
 	            var helperPos = this.helper.getBoundingClientRect();
 	            return {
 	                top: inputPos.top - parentPosy.top - (helperPos.height + 10),
-	                left: inputPos.left - parentPosy.left
+	                left: inputPos.left - parentPosy.left - 25
 	            };
 	        }
 	    }, {
@@ -2194,7 +2163,6 @@
 	                    }
 	                })]);
 	                animate.then(function () {
-	                    console.log("hello!!");
 	                    _this2.removeOverlay();
 	                });
 	            } else {
@@ -2210,6 +2178,7 @@
 	                top: position.top + "px",
 	                left: position.left + "px"
 	            });
+	            this.isHelperDisplayed = true;
 	            if (this.animationSupport) {
 	                _animator2.default.transition({
 	                    element: this.helper,
@@ -2228,6 +2197,7 @@
 	        key: "removeOverlay",
 	        value: function removeOverlay() {
 	            this.overlay.parentNode.removeChild(this.overlay);
+	            this.isHelperDisplayed = false;
 	        }
 	    }, {
 	        key: "addBodyListener",
@@ -2248,19 +2218,41 @@
 	                var func = MessageUs.validation[input.id].func ? MessageUs.validation[input.id].func : function () {
 	                    return false;
 	                };
-	                if (func()) {
-	                    return false;
-	                } else {
-	                    console.log(rules.regex.test(value), value);
-	                    return !rules.regex.test(value);
-	                }
+	                return !func() && !rules.regex.test(value);
 	            });
 	            if (invalid.length) {
 	                this.showValidationMsg(invalid);
-	                console.log(invalid);
 	            } else {
-	                console.log("all valid!");
+	                this.checkNonRequired();
 	            }
+	        }
+	    }, {
+	        key: "checkNonRequired",
+	        value: function checkNonRequired() {
+	            var invalid = this.nonRequiredInputs.filter(function (input) {
+	                var value = input.value;
+	                var rules = MessageUs.validation[input.id];
+	                return value.length && !rules.regex.test(value);
+	            });
+	            if (invalid.length) {
+	                this.showValidationMsg(invalid);
+	            } else {
+	                this.onValid();
+	                this.showOverlay();
+	                this.showHelper(document.querySelector("#contact-form-submit"));
+	                console.log("all valid!");
+	                this.requiredInputs.forEach(function (input) {
+	                    return console.log(input.id, input.value);
+	                });
+	                this.nonRequiredInputs.forEach(function (input) {
+	                    return console.log(input.id, input.value);
+	                });
+	            }
+	        }
+	    }, {
+	        key: "onValid",
+	        value: function onValid() {
+	            this.setHelperText("Great thanks, we'll get back in touch with you as soon as we can in the next 24 hours!");
 	        }
 	    }, {
 	        key: "showValidationMsg",
@@ -2320,7 +2312,7 @@
 	    }
 	};
 	MessageUs.validation["contact-form-msg"] = {
-	    regex: /[a-zA-Z\s+]{10,500}/,
+	    regex: /[a-zA-Z0-9\s+]{10,500}/,
 	    msg: "Leave us a little message here telling us how you think we can help!"
 	};
 
@@ -2655,6 +2647,68 @@
 	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
 
 	/* WEBPACK VAR INJECTION */}.call(exports, {}))
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.onWindowResizeNav = onWindowResizeNav;
+
+	var _debounce = __webpack_require__(2);
+
+	function onWindowResizeNav(nav) {
+
+	    var resizeControl = (0, _debounce.debounce)();
+	    var windowWidth = window.innerWidth;
+
+	    function onResize() {
+	        if (window.innerWidth > 990) {
+	            if (nav.isMenuActive()) {
+	                nav.toggle();
+	                nav.onMenuInactive();
+	            }
+	            nav.nav.removeAttribute("style");
+	        }
+	        windowWidth = window.innerWidth;
+	    }
+
+	    window.addEventListener("resize", resizeControl(onResize, 50)); //9yb3n
+	}
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.onWindowResizeContact = onWindowResizeContact;
+
+	var _debounce = __webpack_require__(2);
+
+	function onWindowResizeContact(form) {
+
+	    var resizeControl = (0, _debounce.debounce)();
+	    var windowWidth = window.innerWidth;
+
+	    function onResize() {
+	        if (Math.abs(window.innerWidth - windowWidth)) {
+	            if (form.isHelperDisplayed) {
+	                form.hideOverlay();
+	            }
+	        }
+	        windowWidth = window.innerWidth;
+	    }
+
+	    window.addEventListener("resize", resizeControl(onResize, 250));
+	}
 
 /***/ }
 /******/ ]);
