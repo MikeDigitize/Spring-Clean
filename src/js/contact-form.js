@@ -1,16 +1,19 @@
 import Animator from "./animator.min";
 
 export default class MessageUs {
-    constructor(form, required) {
-        this.form = document.querySelector(form);
-        this.inputs = Array.from(this.form.querySelectorAll("input, textarea"));
+    constructor() {
+        this.form = document.querySelector("#message-us-form");
+        let inputs = Array.from(this.form.querySelectorAll("input, textarea"));
         this.helper = document.querySelector(".form-helper");
-        this.requiredInputs = required;
+        this.helperText = this.helper.querySelector(".form-helper-msg");
+        this.requiredInputs = inputs.filter(input => input.hasAttribute("required"));
+        this.nonRequiredInputs = inputs.filter(input => !input.hasAttribute("required"));
         this.form.addEventListener("submit", this.onSubmit.bind(this));
         this.overlay = MessageUs.createOverlay();
-        Animator.setStyles(this.overlay, { top: 0, left : 0 });
         this.animationSupport = Animator.isSupported();
         this.hideOverlayHandler = this.hideOverlay.bind(this);
+        this.isHTML5supported = typeof document.createElement("input").placeholder !== "undefined";
+        console.log("isHTML5supported", this.isHTML5supported);
     }
 
     static createOverlay() {
@@ -23,9 +26,6 @@ export default class MessageUs {
         let inputPos = input.getBoundingClientRect();
         let parentPosy = this.form.parentNode.getBoundingClientRect();
         let helperPos = this.helper.getBoundingClientRect();
-        console.log("input", inputPos.top, inputPos.left);
-        console.log("parent", parentPosy.top, parentPosy.left);
-        console.log("helper", helperPos.height);
         return {
             top : (inputPos.top - parentPosy.top) - (helperPos.height + 10),
             left : (inputPos.left - parentPosy.left)
@@ -122,9 +122,70 @@ export default class MessageUs {
         document.body.removeEventListener("click", this.hideOverlayHandler, false);
     }
 
+    checkRequired() {
+        let invalid = this.requiredInputs.filter(input => {
+            let value = input.value;
+            let rules = MessageUs.validation[input.id];
+            let func = MessageUs.validation[input.id].func ? MessageUs.validation[input.id].func : () => false;
+            if(func()) {
+                return false;
+            }
+            else {
+                console.log(rules.regex.test(value), value);
+                return !rules.regex.test(value);
+            }
+        });
+        if(invalid.length) {
+            this.showValidationMsg(invalid);
+            console.log(invalid);
+        }
+        else {
+            console.log("all valid!")
+        }
+    }
+
+    showValidationMsg(invalid) {
+        let msg = MessageUs.validation[invalid[0].id].msg;
+        this.showOverlay();
+        this.setHelperText(msg);
+        this.showHelper(invalid[0]);
+    }
+
+    setHelperText(msg) {
+        let key = this.helperText.innerText ? "innerText" : "textContent";
+        this.helperText[key] = msg;
+    }
+
     onSubmit(e) {
         e.preventDefault();
-        this.showOverlay();
-        this.showHelper(this.inputs[4]);
+        this.checkRequired();
     }
 }
+
+MessageUs.validation = {};
+MessageUs.validation["contact-form-name"] = {
+    regex : /[a-zA-Z\s+]{2,30}/,
+    msg : "We'd like to know your name so we know who to address when we reply!"
+};
+MessageUs.validation["contact-form-location"] = {
+    regex : /[a-zA-Z\s+]{2,30}/,
+    msg : "You don't have to tell us your location, but if you do, make sure it's a real place!",
+};
+MessageUs.validation["contact-form-email"] = {
+    regex : /[^ @]*@[^ @]*/,
+    msg : "We'd like either an email address or telephone number so we can contact you back!",
+    func() {
+        return MessageUs.validation["contact-form-phone"].regex.test(document.querySelector("#contact-form-phone").value);
+    }
+};
+MessageUs.validation["contact-form-phone"] = {
+    regex : /[0-9]{10,20}/,
+    msg : "You don't have to tell us your phone number, but if you do, make sure it's a real one!",
+    func() {
+        return MessageUs.validation["contact-form-email"].regex.test(document.querySelector("#contact-form-email").value);
+    }
+};
+MessageUs.validation["contact-form-msg"] = {
+    regex : /[a-zA-Z\s+]{10,500}/,
+    msg : "Leave us a little message here telling us how you think we can help!"
+};

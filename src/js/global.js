@@ -8,4 +8,4 @@ import "./picturefill.min";
 let nav = navControls();
 let tel = telControls(".header-background", ".icon-phone");
 let resize = onWindowResize(nav);
-let form = new MessageUs("#message-us-form", ["contact-form-name", "contact-form-email", "contact-form-msg"]);
+let form = new MessageUs();

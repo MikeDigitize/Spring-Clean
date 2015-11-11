@@ -65,7 +65,7 @@
 	var nav = (0, _mobileNavControls.navControls)();
 	var tel = (0, _telControls.telControls)(".header-background", ".icon-phone");
 	var resize = (0, _restrictResize.onWindowResize)(nav);
-	var form = new _contactForm2.default("#message-us-form", ["contact-form-name", "contact-form-email", "contact-form-msg"]);
+	var form = new _contactForm2.default();
 
 /***/ },
 /* 1 */
@@ -326,7 +326,7 @@
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var require;var require;/* WEBPACK VAR INJECTION */(function(global) {"use strict";
+	var require;var require;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {"use strict";
 
 	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
 
@@ -2113,18 +2113,25 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var MessageUs = (function () {
-	    function MessageUs(form, required) {
+	    function MessageUs() {
 	        _classCallCheck(this, MessageUs);
 
-	        this.form = document.querySelector(form);
-	        this.inputs = Array.from(this.form.querySelectorAll("input, textarea"));
+	        this.form = document.querySelector("#message-us-form");
+	        var inputs = Array.from(this.form.querySelectorAll("input, textarea"));
 	        this.helper = document.querySelector(".form-helper");
-	        this.requiredInputs = required;
+	        this.helperText = this.helper.querySelector(".form-helper-msg");
+	        this.requiredInputs = inputs.filter(function (input) {
+	            return input.hasAttribute("required");
+	        });
+	        this.nonRequiredInputs = inputs.filter(function (input) {
+	            return !input.hasAttribute("required");
+	        });
 	        this.form.addEventListener("submit", this.onSubmit.bind(this));
 	        this.overlay = MessageUs.createOverlay();
-	        _animator2.default.setStyles(this.overlay, { top: 0, left: 0 });
 	        this.animationSupport = _animator2.default.isSupported();
 	        this.hideOverlayHandler = this.hideOverlay.bind(this);
+	        this.isHTML5supported = typeof document.createElement("input").placeholder !== "undefined";
+	        console.log("isHTML5supported", this.isHTML5supported);
 	    }
 
 	    _createClass(MessageUs, [{
@@ -2133,9 +2140,6 @@
 	            var inputPos = input.getBoundingClientRect();
 	            var parentPosy = this.form.parentNode.getBoundingClientRect();
 	            var helperPos = this.helper.getBoundingClientRect();
-	            console.log("input", inputPos.top, inputPos.left);
-	            console.log("parent", parentPosy.top, parentPosy.left);
-	            console.log("helper", helperPos.height);
 	            return {
 	                top: inputPos.top - parentPosy.top - (helperPos.height + 10),
 	                left: inputPos.left - parentPosy.left
@@ -2236,11 +2240,47 @@
 	            document.body.removeEventListener("click", this.hideOverlayHandler, false);
 	        }
 	    }, {
+	        key: "checkRequired",
+	        value: function checkRequired() {
+	            var invalid = this.requiredInputs.filter(function (input) {
+	                var value = input.value;
+	                var rules = MessageUs.validation[input.id];
+	                var func = MessageUs.validation[input.id].func ? MessageUs.validation[input.id].func : function () {
+	                    return false;
+	                };
+	                if (func()) {
+	                    return false;
+	                } else {
+	                    console.log(rules.regex.test(value), value);
+	                    return !rules.regex.test(value);
+	                }
+	            });
+	            if (invalid.length) {
+	                this.showValidationMsg(invalid);
+	                console.log(invalid);
+	            } else {
+	                console.log("all valid!");
+	            }
+	        }
+	    }, {
+	        key: "showValidationMsg",
+	        value: function showValidationMsg(invalid) {
+	            var msg = MessageUs.validation[invalid[0].id].msg;
+	            this.showOverlay();
+	            this.setHelperText(msg);
+	            this.showHelper(invalid[0]);
+	        }
+	    }, {
+	        key: "setHelperText",
+	        value: function setHelperText(msg) {
+	            var key = this.helperText.innerText ? "innerText" : "textContent";
+	            this.helperText[key] = msg;
+	        }
+	    }, {
 	        key: "onSubmit",
 	        value: function onSubmit(e) {
 	            e.preventDefault();
-	            this.showOverlay();
-	            this.showHelper(this.inputs[4]);
+	            this.checkRequired();
 	        }
 	    }], [{
 	        key: "createOverlay",
@@ -2255,6 +2295,34 @@
 	})();
 
 	exports.default = MessageUs;
+
+	MessageUs.validation = {};
+	MessageUs.validation["contact-form-name"] = {
+	    regex: /[a-zA-Z\s+]{2,30}/,
+	    msg: "We'd like to know your name so we know who to address when we reply!"
+	};
+	MessageUs.validation["contact-form-location"] = {
+	    regex: /[a-zA-Z\s+]{2,30}/,
+	    msg: "You don't have to tell us your location, but if you do, make sure it's a real place!"
+	};
+	MessageUs.validation["contact-form-email"] = {
+	    regex: /[^ @]*@[^ @]*/,
+	    msg: "We'd like either an email address or telephone number so we can contact you back!",
+	    func: function func() {
+	        return MessageUs.validation["contact-form-phone"].regex.test(document.querySelector("#contact-form-phone").value);
+	    }
+	};
+	MessageUs.validation["contact-form-phone"] = {
+	    regex: /[0-9]{10,20}/,
+	    msg: "You don't have to tell us your phone number, but if you do, make sure it's a real one!",
+	    func: function func() {
+	        return MessageUs.validation["contact-form-email"].regex.test(document.querySelector("#contact-form-email").value);
+	    }
+	};
+	MessageUs.validation["contact-form-msg"] = {
+	    regex: /[a-zA-Z\s+]{10,500}/,
+	    msg: "Leave us a little message here telling us how you think we can help!"
+	};
 
 /***/ },
 /* 9 */

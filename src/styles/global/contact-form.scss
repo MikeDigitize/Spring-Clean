@@ -25,6 +25,10 @@
   .title-text {
     top: -20px;
   }
+  .screen-overlay-absolute {
+    top:0;
+    left:0;
+  }
   .form-helper {
     @include helper;
     width: 220px;

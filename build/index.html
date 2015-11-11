@@ -161,7 +161,7 @@
                                     >
                                 </div>
                                 <div class="form-group">
-                                    <label for="contact-form-location" aria-hidden="true">Company</label>
+                                    <label for="contact-form-location" aria-hidden="true">Location</label>
                                     <input
                                             type="text"
                                             aria-required="false"
@@ -187,18 +187,19 @@
                                     <label for="contact-form-phone" aria-hidden="true">Phone number</label>
                                     <input
                                             type="tel"
-                                            aria-required="false"
+                                            aria-required="true"
                                             pattern="[0-9]+"
                                             maxlength="12"
                                             class="form-control"
                                             id="contact-form-phone"
                                             placeholder="Phone number"
+                                            required
                                     >
                                 </div>
                             </fieldset>
                             <fieldset class="col-sm-5">
                                 <label for="contact-form-msg" aria-hidden="true">Your message</label>
-                                <textarea class="form-control" id="contact-form-msg" required placeholder="Message" rows="3" maxlength="500" aria-required="true"></textarea>
+                                <textarea class="form-control" id="contact-form-msg" placeholder="Message" rows="3" maxlength="500" aria-required="true" required></textarea>
                             </fieldset>
                             <fieldset class="col-sm-2">
                                 <button
