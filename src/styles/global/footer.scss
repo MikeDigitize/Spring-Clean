@@ -1,0 +1,102 @@
+@import "variables";
+@import "global";
+
+.footer {
+  position: relative;
+  top: 50px;
+  height: 0;
+  @include animate-fast;
+  .inner {
+    text-align: center;
+    color: #fff;
+    @include rounded-top;
+    @include container-inner(url("../../images/footer-background.png") no-repeat);
+    padding: 10px 100px 0;
+    min-height: 182px;
+    background-size: contain;
+    @media(max-width: 1200px) {
+      background-size: cover;
+      background-position: 35%;
+    }
+    @media(max-width: 990px) {
+      border-radius: 0;
+      top: -55px;
+      padding-top: 40px;
+    }
+    @media(max-width: 768px) {
+      top: -135px;
+      min-height: 0;
+      background-position: 40%;
+    }
+    p {
+      font-size: 18px;
+    }
+    .call-us-msg, .call-us-main-number{
+      font-size: 28px;
+    }
+    .footer-tagline {
+      font-size: 24px;
+    }
+  }
+  .call-us-additional-numbers a {
+    font-size: 22px;
+  }
+  a {
+    color: #fff;
+    @include hover(#fff);
+    display: block;
+  }
+  .icon-twitter {
+    @include icon("../../images/icon-twitter.png");
+    top: 32px;
+    right: auto;
+    left: 32%;
+    width: 65px;
+    height: 66px;
+    @media (max-width: 990px) {
+      position: absolute;
+      width: 65px;
+      height: 66px;
+      left: 10%;
+    }
+    @media(max-width:768px){
+      top:-50px;
+    }
+    @media(max-width:510px){
+      width: 55px;
+      height: 56px;
+      left:6%;
+    }
+    @media(max-width:400px){
+      display: none;
+    }
+  }
+  .icon-facebook {
+    @include icon("../../images/icon-facebook.png");
+    top: 32px;
+    right: 32%;
+    width: 65px;
+    height: 66px;
+    @media (max-width: 990px) {
+      position: absolute;
+      width: 65px;
+      height: 66px;
+      right: 8%;
+    }
+    @media(max-width:768px){
+      top:-50px;
+    }
+    @media(max-width:510px){
+      width: 55px;
+      height: 56px;
+      right: 2%;
+    }
+    @media(max-width:400px){
+      display: none;
+    }
+  }
+  @media(max-width:768px) {
+    padding: 5px;
+    top: 42px;
+  }
+}

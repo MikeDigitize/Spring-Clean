@@ -13,6 +13,9 @@ export default class MessageUs {
         this.animationSupport = Animator.isSupported();
         this.hideOverlayHandler = this.hideOverlay.bind(this);
         this.isHTML5supported = typeof document.createElement("input").placeholder !== "undefined";
+        if(!this.isHTML5supported) {
+            this.startPlaceholderReplacemment();
+        }
         this.isHelperDisplayed = false;
     }
 
@@ -20,6 +23,18 @@ export default class MessageUs {
         let div = document.createElement("div");
         div.classList.add("screen-overlay-absolute");
         return div;
+    }
+
+    startPlaceholderReplacemment() {
+        this.requiredInputs.forEach(input => input.addEventListener("keyup", this.replacePlaceholder.bind(this)));
+        this.nonRequiredInputs.forEach(input => input.addEventListener("keyup", this.replacePlaceholder.bind(this)));
+        this.requiredInputs.forEach(input => input.addEventListener("blur", this.replacePlaceholder.bind(this)));
+        this.nonRequiredInputs.forEach(input => input.addEventListener("blur", this.replacePlaceholder.bind(this)));
+    }
+
+    replacePlaceholder(evt) {
+        let target = evt.target || evt.srcElement;
+        console.log(evt, target);
     }
 
     getInputPosition(input) {

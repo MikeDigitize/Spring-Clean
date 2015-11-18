@@ -46,21 +46,21 @@
 
 	"use strict";
 
-	var _windowResizeNav = __webpack_require__(12);
+	var _windowResizeNav = __webpack_require__(1);
 
-	var _windowResizeContact = __webpack_require__(13);
+	var _windowResizeContact = __webpack_require__(3);
 
-	var _mobileNavControls = __webpack_require__(3);
+	var _mobileNavControls = __webpack_require__(4);
 
-	var _telControls = __webpack_require__(6);
+	var _telControls = __webpack_require__(7);
 
-	var _scrollTo = __webpack_require__(7);
+	var _scrollTo = __webpack_require__(8);
 
-	var _contactForm = __webpack_require__(8);
+	var _contactForm = __webpack_require__(9);
 
 	var _contactForm2 = _interopRequireDefault(_contactForm);
 
-	__webpack_require__(9);
+	__webpack_require__(10);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -72,7 +72,38 @@
 	(0, _windowResizeContact.onWindowResizeContact)(form);
 
 /***/ },
-/* 1 */,
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.onWindowResizeNav = onWindowResizeNav;
+
+	var _debounce = __webpack_require__(2);
+
+	function onWindowResizeNav(nav) {
+
+	    var resizeControl = (0, _debounce.debounce)();
+	    var windowWidth = window.innerWidth;
+
+	    function onResize() {
+	        if (window.innerWidth > 990) {
+	            if (nav.isMenuActive()) {
+	                nav.toggle();
+	                nav.onMenuInactive();
+	            }
+	            nav.nav.removeAttribute("style");
+	        }
+	        windowWidth = window.innerWidth;
+	    }
+
+	    window.addEventListener("resize", resizeControl(onResize, 50)); //9yb3n
+	}
+
+/***/ },
 /* 2 */
 /***/ function(module, exports) {
 
@@ -128,13 +159,43 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.onWindowResizeContact = onWindowResizeContact;
+
+	var _debounce = __webpack_require__(2);
+
+	function onWindowResizeContact(form) {
+
+	    var resizeControl = (0, _debounce.debounce)();
+	    var windowWidth = window.innerWidth;
+
+	    function onResize() {
+	        if (Math.abs(window.innerWidth - windowWidth)) {
+	            if (form.isHelperDisplayed) {
+	                form.hideOverlay();
+	            }
+	        }
+	        windowWidth = window.innerWidth;
+	    }
+
+	    window.addEventListener("resize", resizeControl(onResize, 250));
+	}
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.navControls = navControls;
 
-	var _animator = __webpack_require__(4);
+	var _animator = __webpack_require__(5);
 
 	var _animator2 = _interopRequireDefault(_animator);
 
-	__webpack_require__(5);
+	__webpack_require__(6);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -292,10 +353,10 @@
 	}
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var require;var require;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {"use strict";
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var require;var require;/* WEBPACK VAR INJECTION */(function(global) {"use strict";
 
 	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
 
@@ -1790,7 +1851,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1919,7 +1980,7 @@
 	};
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1929,7 +1990,7 @@
 	});
 	exports.telControls = telControls;
 
-	var _animator = __webpack_require__(4);
+	var _animator = __webpack_require__(5);
 
 	var _animator2 = _interopRequireDefault(_animator);
 
@@ -2043,7 +2104,7 @@
 	}
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2062,7 +2123,7 @@
 	}
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2073,7 +2134,7 @@
 	    value: true
 	});
 
-	var _animator = __webpack_require__(4);
+	var _animator = __webpack_require__(5);
 
 	var _animator2 = _interopRequireDefault(_animator);
 
@@ -2100,10 +2161,37 @@
 	        this.animationSupport = _animator2.default.isSupported();
 	        this.hideOverlayHandler = this.hideOverlay.bind(this);
 	        this.isHTML5supported = typeof document.createElement("input").placeholder !== "undefined";
+	        if (!this.isHTML5supported) {
+	            this.startPlaceholderReplacemment();
+	        }
 	        this.isHelperDisplayed = false;
 	    }
 
 	    _createClass(MessageUs, [{
+	        key: "startPlaceholderReplacemment",
+	        value: function startPlaceholderReplacemment() {
+	            var _this = this;
+
+	            this.requiredInputs.forEach(function (input) {
+	                return input.addEventListener("keyup", _this.replacePlaceholder.bind(_this));
+	            });
+	            this.nonRequiredInputs.forEach(function (input) {
+	                return input.addEventListener("keyup", _this.replacePlaceholder.bind(_this));
+	            });
+	            this.requiredInputs.forEach(function (input) {
+	                return input.addEventListener("blur", _this.replacePlaceholder.bind(_this));
+	            });
+	            this.nonRequiredInputs.forEach(function (input) {
+	                return input.addEventListener("blur", _this.replacePlaceholder.bind(_this));
+	            });
+	        }
+	    }, {
+	        key: "replacePlaceholder",
+	        value: function replacePlaceholder(evt) {
+	            var target = evt.target || evt.srcElement;
+	            console.log(evt, target);
+	        }
+	    }, {
 	        key: "getInputPosition",
 	        value: function getInputPosition(input) {
 	            var inputPos = input.getBoundingClientRect();
@@ -2117,7 +2205,7 @@
 	    }, {
 	        key: "showOverlay",
 	        value: function showOverlay() {
-	            var _this = this;
+	            var _this2 = this;
 
 	            this.form.parentNode.insertBefore(this.overlay, this.form.parentNode.firstChild);
 	            if (this.animationSupport) {
@@ -2131,7 +2219,7 @@
 	                    }
 	                });
 	                animate.then(function () {
-	                    _this.addBodyListener();
+	                    _this2.addBodyListener();
 	                });
 	            } else {
 	                _animator2.default.setStyles(this.overlay, { opacity: 1 });
@@ -2141,7 +2229,7 @@
 	    }, {
 	        key: "hideOverlay",
 	        value: function hideOverlay() {
-	            var _this2 = this;
+	            var _this3 = this;
 
 	            this.removeBodyListener();
 	            if (this.animationSupport) {
@@ -2163,7 +2251,7 @@
 	                    }
 	                })]);
 	                animate.then(function () {
-	                    _this2.removeOverlay();
+	                    _this3.removeOverlay();
 	                });
 	            } else {
 	                this.removeOverlay();
@@ -2317,7 +2405,7 @@
 	};
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module) {"use strict";
@@ -2618,14 +2706,14 @@
 	    };Y(a, "resize", g(i, 99)), Y(b, "readystatechange", e);
 	  })(), s.picturefill = aa, s.fillImgs = aa, s.teardownRun = t, aa._ = s, a.picturefillCFG = { pf: s, push: function push(a) {
 	      var b = a.shift();"function" == typeof s[b] ? s[b].apply(s, a) : (A[b] = a[0], R && s.fillImgs({ reselect: !0 }));
-	    } };for (; I && I.length;) a.picturefillCFG.push(I.shift());a.picturefill = aa, "object" == ( false ? "undefined" : _typeof(module)) && "object" == _typeof(module.exports) ? module.exports = aa : "function" == "function" && __webpack_require__(11) && !(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	    } };for (; I && I.length;) a.picturefillCFG.push(I.shift());a.picturefill = aa, "object" == ( false ? "undefined" : _typeof(module)) && "object" == _typeof(module.exports) ? module.exports = aa : "function" == "function" && __webpack_require__(12) && !(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
 	    return aa;
 	  }.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)), s.supPicture || (z["image/webp"] = e("image/webp", "data:image/webp;base64,UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQUxQSAwAAAABBxAR/Q9ERP8DAABWUDggGAAAADABAJ0BKgEAAQADADQlpAADcAD++/1QAA=="));
 	})(window, document);
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -2641,74 +2729,12 @@
 
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
 
 	/* WEBPACK VAR INJECTION */}.call(exports, {}))
-
-/***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.onWindowResizeNav = onWindowResizeNav;
-
-	var _debounce = __webpack_require__(2);
-
-	function onWindowResizeNav(nav) {
-
-	    var resizeControl = (0, _debounce.debounce)();
-	    var windowWidth = window.innerWidth;
-
-	    function onResize() {
-	        if (window.innerWidth > 990) {
-	            if (nav.isMenuActive()) {
-	                nav.toggle();
-	                nav.onMenuInactive();
-	            }
-	            nav.nav.removeAttribute("style");
-	        }
-	        windowWidth = window.innerWidth;
-	    }
-
-	    window.addEventListener("resize", resizeControl(onResize, 50)); //9yb3n
-	}
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.onWindowResizeContact = onWindowResizeContact;
-
-	var _debounce = __webpack_require__(2);
-
-	function onWindowResizeContact(form) {
-
-	    var resizeControl = (0, _debounce.debounce)();
-	    var windowWidth = window.innerWidth;
-
-	    function onResize() {
-	        if (Math.abs(window.innerWidth - windowWidth)) {
-	            if (form.isHelperDisplayed) {
-	                form.hideOverlay();
-	            }
-	        }
-	        windowWidth = window.innerWidth;
-	    }
-
-	    window.addEventListener("resize", resizeControl(onResize, 250));
-	}
 
 /***/ }
 /******/ ]);
