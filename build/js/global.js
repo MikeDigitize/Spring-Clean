@@ -52,7 +52,7 @@
 
 	var _mobileNavControls = __webpack_require__(4);
 
-	var _telControls = __webpack_require__(7);
+	var _telControls = __webpack_require__(8);
 
 	var _contactForm = __webpack_require__(9);
 
@@ -221,9 +221,9 @@
 
 	var _animator2 = _interopRequireDefault(_animator);
 
-	var _scrollTo = __webpack_require__(8);
+	var _scrollTo = __webpack_require__(6);
 
-	__webpack_require__(6);
+	__webpack_require__(7);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -232,7 +232,7 @@
 	    var nav = document.querySelector(".nav-menu");
 	    var menuBtn = document.querySelector(".mobile-menu-button");
 	    var scroll = (0, _scrollTo.scrollTo)();
-	    document.querySelector(".back-to-the-top").addEventListener("click", scroll.bind(null, ".header-background", menuBtn), false);
+	    document.querySelector(".back-to-the-top").addEventListener("click", scroll.bind(null, ".header-background"), false);
 	    var isMenuActive = function isMenuActive() {
 	        return nav.classList.contains("show-menu");
 	    };
@@ -1886,6 +1886,52 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.scrollTo = scrollTo;
+	function scrollTo() {
+	    var scrollAmount = arguments.length <= 0 || arguments[0] === undefined ? 20 : arguments[0];
+
+	    var findPos = function findPos(el) {
+	        var elPos = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+
+	        if (el.offsetParent) {
+	            do {
+	                elPos += el.offsetTop;
+	            } while (el = el.offsetParent);
+	        }
+	        return elPos;
+	    };
+
+	    var scrollWindow = function scrollWindow(yPos, yStop) {
+	        var scroll = function scroll() {
+	            yPos -= scrollAmount;
+	            window.scrollTo(0, yPos);
+	        };
+	        var timer = setInterval(function () {
+	            if (scrollAmount > 0 && yPos <= yStop || scrollAmount < 0 && yPos >= yStop) {
+	                clearInterval(timer);
+	            } else {
+	                scroll();
+	            }
+	        }, 5);
+	    };
+
+	    return function (selector) {
+	        var elementPos = findPos(document.querySelector(selector));
+	        var scrollPos = window.pageYOffset;
+	        scrollAmount = elementPos > scrollPos ? -Math.abs(scrollAmount) : +Math.abs(scrollAmount);
+	        scrollWindow(scrollPos, elementPos);
+	    };
+	}
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	"use strict";
+
 	/*! @source http://purl.eligrey.com/github/classList.js/blob/master/classList.js */
 	if ("document" in self) {
 	  if (!("classList" in document.createElement("_"))) {
@@ -2010,7 +2056,7 @@
 	};
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2024,6 +2070,8 @@
 
 	var _animator2 = _interopRequireDefault(_animator);
 
+	var _scrollTo = __webpack_require__(6);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function telControls(con, trig) {
@@ -2033,6 +2081,7 @@
 	    var numbers = container.querySelector(".header-telephone-numbers");
 	    var helper = container.querySelector(".phone-helper");
 	    var overlay = createOverlay();
+	    var scroll = (0, _scrollTo.scrollTo)();
 	    var animationSupport = _animator2.default.isSupported();
 
 	    function addTriggerHandlers() {
@@ -2057,6 +2106,7 @@
 	        numbers.classList.toggle("tel-controls-open");
 	        removeTriggerHandlers();
 	        document.addEventListener("click", removeOverlay, false);
+	        scroll(".header-background");
 	    }
 
 	    function onTelControlsInactive() {
@@ -2131,54 +2181,6 @@
 	    }
 
 	    addTriggerHandlers();
-	}
-
-/***/ },
-/* 8 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.scrollTo = scrollTo;
-	function scrollTo() {
-	    var scrollAmount = arguments.length <= 0 || arguments[0] === undefined ? 20 : arguments[0];
-
-	    var findPos = function findPos(el) {
-	        var elPos = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
-
-	        if (el.offsetParent) {
-	            do {
-	                elPos += el.offsetTop;
-	            } while (el = el.offsetParent);
-	        }
-	        return elPos;
-	    };
-
-	    var scrollWindow = function scrollWindow(yPos, yStop, menuBtn) {
-	        menuBtn.classList.add("hide-menu");
-	        var scroll = function scroll() {
-	            yPos -= scrollAmount;
-	            window.scrollTo(0, yPos);
-	        };
-	        var timer = setInterval(function () {
-	            if (scrollAmount > 0 && yPos <= yStop || scrollAmount < 0 && yPos >= yStop) {
-	                clearInterval(timer);
-	                menuBtn.classList.remove("hide-menu");
-	            } else {
-	                scroll();
-	            }
-	        }, 5);
-	    };
-
-	    return function (selector, menuBtn) {
-	        var elementPos = findPos(document.querySelector(selector));
-	        var scrollPos = window.pageYOffset;
-	        scrollAmount = elementPos > scrollPos ? -Math.abs(scrollAmount) : +Math.abs(scrollAmount);
-	        scrollWindow(scrollPos, elementPos, menuBtn);
-	    };
 	}
 
 /***/ },

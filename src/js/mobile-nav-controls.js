@@ -7,7 +7,7 @@ export function navControls() {
     let nav = document.querySelector(".nav-menu");
     let menuBtn = document.querySelector(".mobile-menu-button");
     let scroll = scrollTo();
-    document.querySelector(".back-to-the-top").addEventListener("click", scroll.bind(null, ".header-background", menuBtn), false);
+    document.querySelector(".back-to-the-top").addEventListener("click", scroll.bind(null, ".header-background"), false);
     let isMenuActive = () => nav.classList.contains("show-menu");
     let animationSupport = Animator.isSupported();
     let overlay = createOverlay();

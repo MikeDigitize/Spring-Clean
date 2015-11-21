@@ -1,4 +1,5 @@
 import Animator from "./animator.min";
+import { scrollTo } from "./scrollTo";
 
 export function telControls(con, trig) {
 
@@ -7,6 +8,7 @@ export function telControls(con, trig) {
     let numbers = container.querySelector(".header-telephone-numbers");
     let helper = container.querySelector(".phone-helper");
     let overlay = createOverlay();
+    let scroll = scrollTo();
     let animationSupport = Animator.isSupported();
 
     function addTriggerHandlers() {
@@ -31,6 +33,7 @@ export function telControls(con, trig) {
         numbers.classList.toggle("tel-controls-open");
         removeTriggerHandlers();
         document.addEventListener("click", removeOverlay, false);
+        scroll(".header-background");
     }
 
     function onTelControlsInactive() {
