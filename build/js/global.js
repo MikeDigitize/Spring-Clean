@@ -68,8 +68,7 @@
 	var tel = (0, _telControls.telControls)(".header-background", ".icon-phone");
 	var form = new _contactForm2.default();
 	var scroll = (0, _scrollTo.scrollTo)();
-	document.querySelector(".footer").addEventListener("click", scroll.bind(null, ".about-us"), false);
-	document.querySelector(".header").addEventListener("click", scroll.bind(null, ".about-us"), false);
+	document.querySelector(".back-to-the-top").addEventListener("click", scroll.bind(null, ".about-us"), false);
 	(0, _windowResizeNav.onWindowResizeNav)(nav);
 	(0, _windowResizeContact.onWindowResizeContact)(form);
 
@@ -2129,14 +2128,13 @@
 	        return elPos;
 	    };
 
-	    var scrollUp = function scrollUp(start, stop) {
+	    var scrollUp = function scrollUp(yPos, yStop) {
 	        var scroll = function scroll() {
-	            var y = start - scrollAmount;
-	            start -= scrollAmount;
-	            window.scrollTo(0, y);
+	            yPos -= scrollAmount;
+	            window.scrollTo(0, yPos);
 	        };
 	        var timer = setInterval(function () {
-	            if (scrollAmount > 0 && start <= stop || scrollAmount < 0 && start >= stop) {
+	            if (scrollAmount > 0 && yPos <= yStop || scrollAmount < 0 && yPos >= yStop) {
 	                clearInterval(timer);
 	            } else {
 	                scroll();
@@ -2145,6 +2143,7 @@
 	    };
 
 	    return function (selector) {
+	        console.log("woop");
 	        var elementPos = findPos(document.querySelector(selector));
 	        var scrollPos = window.pageYOffset;
 	        scrollAmount = elementPos > scrollPos ? -Math.abs(scrollAmount) : +Math.abs(scrollAmount);

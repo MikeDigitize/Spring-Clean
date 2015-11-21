@@ -9,14 +9,13 @@ export function scrollTo(scrollAmount = 20) {
         return elPos;
     };
 
-    let scrollUp = (start, stop) => {
+    let scrollUp = (yPos, yStop) => {
         let scroll = () => {
-            let y = start - scrollAmount;
-            start -=scrollAmount;
-            window.scrollTo(0, y);
+            yPos -=scrollAmount;
+            window.scrollTo(0, yPos);
         };
         let timer = setInterval(() => {
-            if(scrollAmount > 0 && start <= stop || scrollAmount < 0 && start >= stop) {
+            if(scrollAmount > 0 && yPos <= yStop || scrollAmount < 0 && yPos >= yStop) {
                 clearInterval(timer);
             }
             else {
@@ -26,9 +25,11 @@ export function scrollTo(scrollAmount = 20) {
     };
 
     return selector => {
+        console.log("woop");
         let elementPos = findPos(document.querySelector(selector));
         let scrollPos = window.pageYOffset;
         scrollAmount = elementPos > scrollPos ? -Math.abs(scrollAmount) : +Math.abs(scrollAmount);
         scrollUp(scrollPos, elementPos);
     };
+
 }

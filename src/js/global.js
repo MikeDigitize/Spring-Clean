@@ -10,7 +10,6 @@ let nav = navControls();
 let tel = telControls(".header-background", ".icon-phone");
 let form = new MessageUs();
 let scroll = scrollTo();
-document.querySelector(".footer").addEventListener("click", scroll.bind(null, ".about-us"), false);
-document.querySelector(".header").addEventListener("click", scroll.bind(null, ".about-us"), false);
+document.querySelector(".back-to-the-top").addEventListener("click", scroll.bind(null, ".about-us"), false);
 onWindowResizeNav(nav);
 onWindowResizeContact(form);
