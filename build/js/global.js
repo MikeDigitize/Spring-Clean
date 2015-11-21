@@ -67,7 +67,9 @@
 	var nav = (0, _mobileNavControls.navControls)();
 	var tel = (0, _telControls.telControls)(".header-background", ".icon-phone");
 	var form = new _contactForm2.default();
-	console.log(form);
+	var scroll = (0, _scrollTo.scrollTo)();
+	document.querySelector(".footer").addEventListener("click", scroll.bind(null, ".about-us"), false);
+	document.querySelector(".header").addEventListener("click", scroll.bind(null, ".about-us"), false);
 	(0, _windowResizeNav.onWindowResizeNav)(nav);
 	(0, _windowResizeContact.onWindowResizeContact)(form);
 
@@ -356,7 +358,7 @@
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var require;var require;/* WEBPACK VAR INJECTION */(function(global) {"use strict";
+	var require;var require;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {"use strict";
 
 	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
 
@@ -2114,11 +2116,39 @@
 	});
 	exports.scrollTo = scrollTo;
 	function scrollTo() {
-	    var top = document.documentElement.scrollTop || window.pageYOffset,
-	        left = document.documentElement.scrollLeft || window.pageXOffset;
-	    return {
-	        top: top,
-	        left: left
+	    var scrollAmount = arguments.length <= 0 || arguments[0] === undefined ? 20 : arguments[0];
+
+	    var findPos = function findPos(el) {
+	        var elPos = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+
+	        if (el.offsetParent) {
+	            do {
+	                elPos += el.offsetTop;
+	            } while (el = el.offsetParent);
+	        }
+	        return elPos;
+	    };
+
+	    var scrollUp = function scrollUp(start, stop) {
+	        var scroll = function scroll() {
+	            var y = start - scrollAmount;
+	            start -= scrollAmount;
+	            window.scrollTo(0, y);
+	        };
+	        var timer = setInterval(function () {
+	            if (scrollAmount > 0 && start <= stop || scrollAmount < 0 && start >= stop) {
+	                clearInterval(timer);
+	            } else {
+	                scroll();
+	            }
+	        }, 5);
+	    };
+
+	    return function (selector) {
+	        var elementPos = findPos(document.querySelector(selector));
+	        var scrollPos = window.pageYOffset;
+	        scrollAmount = elementPos > scrollPos ? -Math.abs(scrollAmount) : +Math.abs(scrollAmount);
+	        scrollUp(scrollPos, elementPos);
 	    };
 	}
 
@@ -2328,7 +2358,6 @@
 	                this.onValid();
 	                this.showOverlay();
 	                this.showHelper(document.querySelector("#contact-form-submit"));
-	                console.log("all valid!");
 	                this.requiredInputs.forEach(function (input) {
 	                    return console.log(input.id, input.value);
 	                });

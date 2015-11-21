@@ -11,9 +11,10 @@
     color: #fff;
     @include rounded-top;
     @include container-inner(url("../../images/footer-background.png") no-repeat);
+    width: 100%;
     padding: 10px 100px 0;
     min-height: 182px;
-    background-size: contain;
+    background-size: cover;
     @media(max-width: 1200px) {
       background-size: cover;
       background-position: 35%;

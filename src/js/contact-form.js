@@ -166,7 +166,6 @@ export default class MessageUs {
             this.onValid();
             this.showOverlay();
             this.showHelper(document.querySelector("#contact-form-submit"));
-            console.log("all valid!");
             this.requiredInputs.forEach(input => console.log(input.id, input.value));
             this.nonRequiredInputs.forEach(input => console.log(input.id, input.value));
         }

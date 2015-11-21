@@ -4,6 +4,7 @@ import autoprefixer from "gulp-autoprefixer";
 import changed from "gulp-changed";
 import concat from "gulp-concat";
 import minifyCSS from "gulp-minify-css";
+import minifyHTML from "gulp-minify-html";
 import sequence from "run-sequence";
 import imagemin from "gulp-imagemin";
 import rename from "gulp-rename";
@@ -77,7 +78,9 @@ gulp.task("fonts", () => {
 });
 
 gulp.task("html", () => {
-    return copy(`${DIRS.src}/*html`, DIRS.dest);
+    return gulp.src(`${DIRS.src}/*html`)
+        .pipe(minifyHTML())
+        .pipe(gulp.dest(`${DIRS.dest}`));
 });
 
 gulp.task("home-styles", () => {
