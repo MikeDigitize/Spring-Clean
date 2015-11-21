@@ -52,13 +52,13 @@
 
 	var _mobileNavControls = __webpack_require__(4);
 
-	var _telControls = __webpack_require__(8);
+	var _telControls = __webpack_require__(9);
 
-	var _contactForm = __webpack_require__(9);
+	var _contactForm = __webpack_require__(10);
 
 	var _contactForm2 = _interopRequireDefault(_contactForm);
 
-	__webpack_require__(10);
+	__webpack_require__(11);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -81,18 +81,9 @@
 
 	var _debounce = __webpack_require__(2);
 
+	var _elementPosition = __webpack_require__(7);
+
 	function onWindowResizeNav(nav) {
-
-	    var findPos = function findPos(el) {
-	        var elPos = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
-
-	        if (el.offsetParent) {
-	            do {
-	                elPos += el.offsetTop;
-	            } while (el = el.offsetParent);
-	        }
-	        return elPos;
-	    };
 
 	    function onResize() {
 	        if (window.innerWidth > 990) {
@@ -106,7 +97,7 @@
 	    }
 
 	    function onScroll() {
-	        if (windowWidth < 991 && !nav.isMenuActive()) {
+	        if (windowWidth < 991) {
 	            checkStickyNav();
 	        }
 	    }
@@ -122,11 +113,11 @@
 	    var limiter = (0, _debounce.debounce)();
 	    var windowWidth = window.innerWidth;
 	    var mobNav = document.querySelector(".mobile-menu-button");
-	    var navPos = findPos(mobNav);
+	    var navPos = (0, _elementPosition.getElementPosition)(mobNav);
 	    onScroll();
 
 	    window.addEventListener("resize", limiter(onResize, 50));
-	    window.addEventListener("scroll", limiter(onScroll, 50));
+	    window.addEventListener("scroll", limiter(onScroll, 0));
 	}
 
 /***/ },
@@ -223,7 +214,7 @@
 
 	var _scrollTo = __webpack_require__(6);
 
-	__webpack_require__(7);
+	__webpack_require__(8);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -386,7 +377,7 @@
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var require;var require;/* WEBPACK VAR INJECTION */(function(global) {"use strict";
+	var require;var require;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {"use strict";
 
 	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
 
@@ -1882,7 +1873,7 @@
 
 /***/ },
 /* 6 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
@@ -1890,19 +1881,11 @@
 	    value: true
 	});
 	exports.scrollTo = scrollTo;
+
+	var _elementPosition = __webpack_require__(7);
+
 	function scrollTo() {
 	    var scrollAmount = arguments.length <= 0 || arguments[0] === undefined ? 20 : arguments[0];
-
-	    var findPos = function findPos(el) {
-	        var elPos = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
-
-	        if (el.offsetParent) {
-	            do {
-	                elPos += el.offsetTop;
-	            } while (el = el.offsetParent);
-	        }
-	        return elPos;
-	    };
 
 	    var scrollWindow = function scrollWindow(yPos, yStop) {
 	        var scroll = function scroll() {
@@ -1919,7 +1902,7 @@
 	    };
 
 	    return function (selector) {
-	        var elementPos = findPos(document.querySelector(selector));
+	        var elementPos = (0, _elementPosition.getElementPosition)(document.querySelector(selector));
 	        var scrollPos = window.pageYOffset;
 	        scrollAmount = elementPos > scrollPos ? -Math.abs(scrollAmount) : +Math.abs(scrollAmount);
 	        scrollWindow(scrollPos, elementPos);
@@ -1928,6 +1911,27 @@
 
 /***/ },
 /* 7 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.getElementPosition = getElementPosition;
+	function getElementPosition(el) {
+	    var elPos = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+
+	    if (el.offsetParent) {
+	        do {
+	            elPos += el.offsetTop;
+	        } while (el = el.offsetParent);
+	    }
+	    return elPos;
+	}
+
+/***/ },
+/* 8 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2056,7 +2060,7 @@
 	};
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2184,7 +2188,7 @@
 	}
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2465,7 +2469,7 @@
 	};
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module) {"use strict";
@@ -2766,14 +2770,14 @@
 	    };Y(a, "resize", g(i, 99)), Y(b, "readystatechange", e);
 	  })(), s.picturefill = aa, s.fillImgs = aa, s.teardownRun = t, aa._ = s, a.picturefillCFG = { pf: s, push: function push(a) {
 	      var b = a.shift();"function" == typeof s[b] ? s[b].apply(s, a) : (A[b] = a[0], R && s.fillImgs({ reselect: !0 }));
-	    } };for (; I && I.length;) a.picturefillCFG.push(I.shift());a.picturefill = aa, "object" == ( false ? "undefined" : _typeof(module)) && "object" == _typeof(module.exports) ? module.exports = aa : "function" == "function" && __webpack_require__(12) && !(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	    } };for (; I && I.length;) a.picturefillCFG.push(I.shift());a.picturefill = aa, "object" == ( false ? "undefined" : _typeof(module)) && "object" == _typeof(module.exports) ? module.exports = aa : "function" == "function" && __webpack_require__(13) && !(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
 	    return aa;
 	  }.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)), s.supPicture || (z["image/webp"] = e("image/webp", "data:image/webp;base64,UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQUxQSAwAAAABBxAR/Q9ERP8DAABWUDggGAAAADABAJ0BKgEAAQADADQlpAADcAD++/1QAA=="));
 	})(window, document);
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)(module)))
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -2789,7 +2793,7 @@
 
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;

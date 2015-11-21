@@ -1,13 +1,6 @@
-export function scrollTo(scrollAmount = 20) {
+import { getElementPosition } from "./element-position";
 
-    let findPos = (el, elPos = 0) => {
-        if (el.offsetParent) {
-            do {
-                elPos += el.offsetTop;
-            } while (el = el.offsetParent);
-        }
-        return elPos;
-    };
+export function scrollTo(scrollAmount = 20) {
 
     let scrollWindow = (yPos, yStop) => {
         let scroll = () => {
@@ -25,7 +18,7 @@ export function scrollTo(scrollAmount = 20) {
     };
 
     return (selector) => {
-        let elementPos = findPos(document.querySelector(selector));
+        let elementPos = getElementPosition(document.querySelector(selector));
         let scrollPos = window.pageYOffset;
         scrollAmount = elementPos > scrollPos ? -Math.abs(scrollAmount) : +Math.abs(scrollAmount);
         scrollWindow(scrollPos, elementPos);

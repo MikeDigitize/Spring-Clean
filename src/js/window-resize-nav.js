@@ -1,15 +1,7 @@
 import { debounce } from "./debounce";
+import { getElementPosition } from "./element-position";
 
 export function onWindowResizeNav(nav) {
-
-    let findPos = (el, elPos = 0) => {
-        if (el.offsetParent) {
-            do {
-                elPos += el.offsetTop;
-            } while (el = el.offsetParent);
-        }
-        return elPos;
-    };
 
     function onResize() {
         if(window.innerWidth > 990) {
@@ -23,7 +15,7 @@ export function onWindowResizeNav(nav) {
     }
 
     function onScroll() {
-        if(windowWidth < 991 && !nav.isMenuActive()) {
+        if(windowWidth < 991) {
             checkStickyNav();
         }
     }
@@ -40,10 +32,10 @@ export function onWindowResizeNav(nav) {
     let limiter = debounce();
     let windowWidth = window.innerWidth;
     let mobNav = document.querySelector(".mobile-menu-button");
-    let navPos = findPos(mobNav);
+    let navPos = getElementPosition(mobNav);
     onScroll();
 
     window.addEventListener("resize", limiter(onResize, 50));
-    window.addEventListener("scroll", limiter(onScroll, 50));
+    window.addEventListener("scroll", limiter(onScroll, 0));
 
 }
