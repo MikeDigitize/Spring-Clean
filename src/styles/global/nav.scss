@@ -81,6 +81,18 @@
       display: block;
       margin-right: 1%;
     }
+    &.sticky-nav {
+      @include animate-fast;
+      position: fixed;
+      top: 1px;
+      right: 1px;
+      background: $yellow;
+      padding: 10px;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    }
+    &.hide-menu {
+      opacity: 0;
+    }
   }
 
   .header-nav-icon-holder {

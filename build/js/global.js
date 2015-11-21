@@ -54,8 +54,6 @@
 
 	var _telControls = __webpack_require__(7);
 
-	var _scrollTo = __webpack_require__(8);
-
 	var _contactForm = __webpack_require__(9);
 
 	var _contactForm2 = _interopRequireDefault(_contactForm);
@@ -67,8 +65,6 @@
 	var nav = (0, _mobileNavControls.navControls)();
 	var tel = (0, _telControls.telControls)(".header-background", ".icon-phone");
 	var form = new _contactForm2.default();
-	var scroll = (0, _scrollTo.scrollTo)();
-	document.querySelector(".back-to-the-top").addEventListener("click", scroll.bind(null, ".about-us"), false);
 	(0, _windowResizeNav.onWindowResizeNav)(nav);
 	(0, _windowResizeContact.onWindowResizeContact)(form);
 
@@ -87,8 +83,16 @@
 
 	function onWindowResizeNav(nav) {
 
-	    var resizeControl = (0, _debounce.debounce)();
-	    var windowWidth = window.innerWidth;
+	    var findPos = function findPos(el) {
+	        var elPos = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+
+	        if (el.offsetParent) {
+	            do {
+	                elPos += el.offsetTop;
+	            } while (el = el.offsetParent);
+	        }
+	        return elPos;
+	    };
 
 	    function onResize() {
 	        if (window.innerWidth > 990) {
@@ -101,7 +105,28 @@
 	        windowWidth = window.innerWidth;
 	    }
 
-	    window.addEventListener("resize", resizeControl(onResize, 50)); //9yb3n
+	    function onScroll() {
+	        if (windowWidth < 991 && !nav.isMenuActive()) {
+	            checkStickyNav();
+	        }
+	    }
+
+	    function checkStickyNav() {
+	        if (window.pageYOffset > navPos) {
+	            mobNav.classList.add("sticky-nav");
+	        } else {
+	            mobNav.classList.remove("sticky-nav");
+	        }
+	    }
+
+	    var limiter = (0, _debounce.debounce)();
+	    var windowWidth = window.innerWidth;
+	    var mobNav = document.querySelector(".mobile-menu-button");
+	    var navPos = findPos(mobNav);
+	    onScroll();
+
+	    window.addEventListener("resize", limiter(onResize, 50));
+	    window.addEventListener("scroll", limiter(onScroll, 50));
 	}
 
 /***/ },
@@ -196,6 +221,8 @@
 
 	var _animator2 = _interopRequireDefault(_animator);
 
+	var _scrollTo = __webpack_require__(8);
+
 	__webpack_require__(6);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -204,6 +231,8 @@
 
 	    var nav = document.querySelector(".nav-menu");
 	    var menuBtn = document.querySelector(".mobile-menu-button");
+	    var scroll = (0, _scrollTo.scrollTo)();
+	    document.querySelector(".back-to-the-top").addEventListener("click", scroll.bind(null, ".header-background", menuBtn), false);
 	    var isMenuActive = function isMenuActive() {
 	        return nav.classList.contains("show-menu");
 	    };
@@ -357,7 +386,7 @@
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var require;var require;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {"use strict";
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var require;var require;/* WEBPACK VAR INJECTION */(function(global) {"use strict";
 
 	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
 
@@ -2128,7 +2157,8 @@
 	        return elPos;
 	    };
 
-	    var scrollUp = function scrollUp(yPos, yStop) {
+	    var scrollWindow = function scrollWindow(yPos, yStop, menuBtn) {
+	        menuBtn.classList.add("hide-menu");
 	        var scroll = function scroll() {
 	            yPos -= scrollAmount;
 	            window.scrollTo(0, yPos);
@@ -2136,18 +2166,18 @@
 	        var timer = setInterval(function () {
 	            if (scrollAmount > 0 && yPos <= yStop || scrollAmount < 0 && yPos >= yStop) {
 	                clearInterval(timer);
+	                menuBtn.classList.remove("hide-menu");
 	            } else {
 	                scroll();
 	            }
 	        }, 5);
 	    };
 
-	    return function (selector) {
-	        console.log("woop");
+	    return function (selector, menuBtn) {
 	        var elementPos = findPos(document.querySelector(selector));
 	        var scrollPos = window.pageYOffset;
 	        scrollAmount = elementPos > scrollPos ? -Math.abs(scrollAmount) : +Math.abs(scrollAmount);
-	        scrollUp(scrollPos, elementPos);
+	        scrollWindow(scrollPos, elementPos, menuBtn);
 	    };
 	}
 

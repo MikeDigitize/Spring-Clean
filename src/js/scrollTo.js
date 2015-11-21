@@ -9,7 +9,8 @@ export function scrollTo(scrollAmount = 20) {
         return elPos;
     };
 
-    let scrollUp = (yPos, yStop) => {
+    let scrollWindow = (yPos, yStop, menuBtn) => {
+        menuBtn.classList.add("hide-menu");
         let scroll = () => {
             yPos -=scrollAmount;
             window.scrollTo(0, yPos);
@@ -17,6 +18,7 @@ export function scrollTo(scrollAmount = 20) {
         let timer = setInterval(() => {
             if(scrollAmount > 0 && yPos <= yStop || scrollAmount < 0 && yPos >= yStop) {
                 clearInterval(timer);
+                menuBtn.classList.remove("hide-menu");
             }
             else {
                 scroll();
@@ -24,12 +26,11 @@ export function scrollTo(scrollAmount = 20) {
         }, 5);
     };
 
-    return selector => {
-        console.log("woop");
+    return (selector, menuBtn) => {
         let elementPos = findPos(document.querySelector(selector));
         let scrollPos = window.pageYOffset;
         scrollAmount = elementPos > scrollPos ? -Math.abs(scrollAmount) : +Math.abs(scrollAmount);
-        scrollUp(scrollPos, elementPos);
+        scrollWindow(scrollPos, elementPos, menuBtn);
     };
 
 }
