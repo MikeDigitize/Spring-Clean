@@ -37,6 +37,19 @@
     }
     .footer-tagline {
       font-size: 24px;
+      position: relative;
+      @media(max-width: 990px) {
+        top: 20px;
+      }
+    }
+    .footer-top-info-holder {
+      top: 17px;
+      @media(max-width:1200px) {
+        top: 8px;
+      }
+      @media(max-width:1200px) {
+        top: auto;
+      }
     }
   }
   .call-us-additional-numbers a {
@@ -49,9 +62,9 @@
   }
   .icon-twitter {
     @include icon("../../images/icon-twitter.png");
-    top: 32px;
+    top: 48px;
     right: auto;
-    left: 32%;
+    left: 12%;
     width: 65px;
     height: 66px;
     @media (max-width: 990px) {
@@ -74,8 +87,8 @@
   }
   .icon-facebook {
     @include icon("../../images/icon-facebook.png");
-    top: 32px;
-    right: 32%;
+    top: 48px;
+    right: 13%;
     width: 65px;
     height: 66px;
     @media (max-width: 990px) {

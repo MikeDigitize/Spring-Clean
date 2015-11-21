@@ -10,17 +10,21 @@ export function onWindowResizeNav(nav) {
                 nav.onMenuInactive();
             }
             nav.nav.removeAttribute("style");
+            mobNav.classList.remove("sticky-nav");
         }
-        windowWidth = window.innerWidth;
+        else {
+            checkStickyNav();
+        }
     }
 
     function onScroll() {
-        if(windowWidth < 991) {
+        if(window.innerWidth < 991) {
             checkStickyNav();
         }
     }
 
     function checkStickyNav() {
+        console.log("positions", window.pageYOffset, navPos);
         if(window.pageYOffset > navPos) {
             mobNav.classList.add("sticky-nav");
         }
@@ -30,7 +34,6 @@ export function onWindowResizeNav(nav) {
     }
 
     let limiter = debounce();
-    let windowWidth = window.innerWidth;
     let mobNav = document.querySelector(".mobile-menu-button");
     let navPos = getElementPosition(mobNav);
     onScroll();

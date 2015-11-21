@@ -84,8 +84,8 @@
     &.sticky-nav {
       @include animate-fast;
       position: fixed;
-      top: 1px;
-      right: 1px;
+      top: 0;
+      right: 0;
       background: $yellow;
       padding: 10px;
       box-shadow: 2px 2px 5px rgba(0,0,0,0.5);

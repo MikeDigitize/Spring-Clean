@@ -92,17 +92,20 @@
 	                nav.onMenuInactive();
 	            }
 	            nav.nav.removeAttribute("style");
+	            mobNav.classList.remove("sticky-nav");
+	        } else {
+	            checkStickyNav();
 	        }
-	        windowWidth = window.innerWidth;
 	    }
 
 	    function onScroll() {
-	        if (windowWidth < 991) {
+	        if (window.innerWidth < 991) {
 	            checkStickyNav();
 	        }
 	    }
 
 	    function checkStickyNav() {
+	        console.log("positions", window.pageYOffset, navPos);
 	        if (window.pageYOffset > navPos) {
 	            mobNav.classList.add("sticky-nav");
 	        } else {
@@ -111,7 +114,6 @@
 	    }
 
 	    var limiter = (0, _debounce.debounce)();
-	    var windowWidth = window.innerWidth;
 	    var mobNav = document.querySelector(".mobile-menu-button");
 	    var navPos = (0, _elementPosition.getElementPosition)(mobNav);
 	    onScroll();
