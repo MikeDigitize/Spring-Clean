@@ -24,7 +24,10 @@ export function onWindowResizeNav(nav) {
     }
 
     function checkStickyNav() {
-        console.log("positions", window.pageYOffset, navPos);
+        if(!navPos) {
+            navPos = getElementPosition(mobNav);
+        }
+
         if(window.pageYOffset > navPos) {
             mobNav.classList.add("sticky-nav");
         }
@@ -35,7 +38,7 @@ export function onWindowResizeNav(nav) {
 
     let limiter = debounce();
     let mobNav = document.querySelector(".mobile-menu-button");
-    let navPos = getElementPosition(mobNav);
+    let navPos;
     onScroll();
 
     window.addEventListener("resize", limiter(onResize, 50));

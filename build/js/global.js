@@ -48,9 +48,9 @@
 
 	var _windowResizeNav = __webpack_require__(1);
 
-	var _windowResizeContact = __webpack_require__(3);
+	var _windowResizeContact = __webpack_require__(4);
 
-	var _mobileNavControls = __webpack_require__(4);
+	var _mobileNavControls = __webpack_require__(5);
 
 	var _telControls = __webpack_require__(9);
 
@@ -59,6 +59,8 @@
 	var _contactForm2 = _interopRequireDefault(_contactForm);
 
 	__webpack_require__(11);
+
+	__webpack_require__(8);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -81,7 +83,7 @@
 
 	var _debounce = __webpack_require__(2);
 
-	var _elementPosition = __webpack_require__(7);
+	var _elementPosition = __webpack_require__(3);
 
 	function onWindowResizeNav(nav) {
 
@@ -105,7 +107,10 @@
 	    }
 
 	    function checkStickyNav() {
-	        console.log("positions", window.pageYOffset, navPos);
+	        if (!navPos) {
+	            navPos = (0, _elementPosition.getElementPosition)(mobNav);
+	        }
+
 	        if (window.pageYOffset > navPos) {
 	            mobNav.classList.add("sticky-nav");
 	        } else {
@@ -115,7 +120,7 @@
 
 	    var limiter = (0, _debounce.debounce)();
 	    var mobNav = document.querySelector(".mobile-menu-button");
-	    var navPos = (0, _elementPosition.getElementPosition)(mobNav);
+	    var navPos = undefined;
 	    onScroll();
 
 	    window.addEventListener("resize", limiter(onResize, 50));
@@ -171,6 +176,27 @@
 
 /***/ },
 /* 3 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.getElementPosition = getElementPosition;
+	function getElementPosition(el) {
+	    var elPos = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+
+	    if (el.offsetParent) {
+	        do {
+	            elPos += el.offsetTop;
+	        } while (el = el.offsetParent);
+	    }
+	    return elPos;
+	}
+
+/***/ },
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -200,7 +226,7 @@
 	}
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -210,13 +236,11 @@
 	});
 	exports.navControls = navControls;
 
-	var _animator = __webpack_require__(5);
+	var _animator = __webpack_require__(6);
 
 	var _animator2 = _interopRequireDefault(_animator);
 
-	var _scrollTo = __webpack_require__(6);
-
-	__webpack_require__(8);
+	var _scrollTo = __webpack_require__(7);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -376,7 +400,7 @@
 	}
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var require;var require;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {"use strict";
@@ -1874,7 +1898,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1884,7 +1908,7 @@
 	});
 	exports.scrollTo = scrollTo;
 
-	var _elementPosition = __webpack_require__(7);
+	var _elementPosition = __webpack_require__(3);
 
 	function scrollTo() {
 	    var scrollAmount = arguments.length <= 0 || arguments[0] === undefined ? 20 : arguments[0];
@@ -1909,27 +1933,6 @@
 	        scrollAmount = elementPos > scrollPos ? -Math.abs(scrollAmount) : +Math.abs(scrollAmount);
 	        scrollWindow(scrollPos, elementPos);
 	    };
-	}
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.getElementPosition = getElementPosition;
-	function getElementPosition(el) {
-	    var elPos = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
-
-	    if (el.offsetParent) {
-	        do {
-	            elPos += el.offsetTop;
-	        } while (el = el.offsetParent);
-	    }
-	    return elPos;
 	}
 
 /***/ },
@@ -2072,11 +2075,11 @@
 	});
 	exports.telControls = telControls;
 
-	var _animator = __webpack_require__(5);
+	var _animator = __webpack_require__(6);
 
 	var _animator2 = _interopRequireDefault(_animator);
 
-	var _scrollTo = __webpack_require__(6);
+	var _scrollTo = __webpack_require__(7);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2201,7 +2204,7 @@
 	    value: true
 	});
 
-	var _animator = __webpack_require__(5);
+	var _animator = __webpack_require__(6);
 
 	var _animator2 = _interopRequireDefault(_animator);
 

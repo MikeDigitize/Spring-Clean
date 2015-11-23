@@ -1,6 +1,5 @@
 import Animator from "./animator.min";
 import { scrollTo } from "./scrollTo";
-import "./classList.min";
 
 export function navControls() {
 
