@@ -88,6 +88,10 @@ export default class MessageUs {
                     setStyles : {
                         before : {
                             opacity : 0
+                        },
+                        after : {
+                            top : 0,
+                            left : 0
                         }
                     }
                 })
@@ -98,7 +102,7 @@ export default class MessageUs {
         }
         else {
             this.removeOverlay();
-            Animator.setStyles(this.helper, { opacity : 0 });
+            Animator.setStyles(this.helper, { opacity : 0, top : 0, left : 0 });
         }
     }
 

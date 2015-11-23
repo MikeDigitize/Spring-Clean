@@ -403,7 +403,7 @@
 /* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var require;var require;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {"use strict";
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var require;var require;/* WEBPACK VAR INJECTION */(function(global) {"use strict";
 
 	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
 
@@ -2317,6 +2317,10 @@
 	                    setStyles: {
 	                        before: {
 	                            opacity: 0
+	                        },
+	                        after: {
+	                            top: 0,
+	                            left: 0
 	                        }
 	                    }
 	                })]);
@@ -2325,7 +2329,7 @@
 	                });
 	            } else {
 	                this.removeOverlay();
-	                _animator2.default.setStyles(this.helper, { opacity: 0 });
+	                _animator2.default.setStyles(this.helper, { opacity: 0, top: 0, left: 0 });
 	            }
 	        }
 	    }, {
