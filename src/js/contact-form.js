@@ -1,4 +1,5 @@
 import Animator from "./animator.min";
+import { scrollTo } from "./scroll-to";
 
 export default class MessageUs {
     constructor() {
@@ -17,6 +18,7 @@ export default class MessageUs {
             this.startPlaceholderReplacemment();
         }
         this.isHelperDisplayed = false;
+        this.scrollTo = scrollTo();
     }
 
     static createOverlay() {
@@ -113,6 +115,7 @@ export default class MessageUs {
             left : position.left + "px"
         });
         this.isHelperDisplayed = true;
+        this.scrollTo(this.helper);
         if(this.animationSupport) {
             Animator.transition({
                 element : this.helper,

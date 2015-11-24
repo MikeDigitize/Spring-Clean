@@ -18,7 +18,8 @@ export function scrollTo(scrollAmount = 20) {
     };
 
     return (selector) => {
-        let elementPos = getElementPosition(document.querySelector(selector));
+        let el = selector === typeof "string" ? document.querySelector(selector) : selector;
+        let elementPos = getElementPosition(el);
         let scrollPos = window.pageYOffset;
         scrollAmount = elementPos > scrollPos ? -Math.abs(scrollAmount) : +Math.abs(scrollAmount);
         scrollWindow(scrollPos, elementPos);
