@@ -4,7 +4,7 @@ export function scrollTo(scrollAmount = 20) {
 
     let scrollWindow = (yPos, yStop) => {
         let scroll = () => {
-            yPos -=scrollAmount;
+            yPos -= scrollAmount;
             window.scrollTo(0, yPos);
         };
         let timer = setInterval(() => {

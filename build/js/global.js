@@ -240,7 +240,7 @@
 
 	var _animator2 = _interopRequireDefault(_animator);
 
-	var _scrollTo = __webpack_require__(14);
+	var _scrollTo = __webpack_require__(7);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1898,7 +1898,47 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 7 */,
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.scrollTo = scrollTo;
+
+	var _elementPosition = __webpack_require__(3);
+
+	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
+
+	function scrollTo() {
+	    var scrollAmount = arguments.length <= 0 || arguments[0] === undefined ? 20 : arguments[0];
+
+	    var scrollWindow = function scrollWindow(yPos, yStop) {
+	        var scroll = function scroll() {
+	            yPos -= scrollAmount;
+	            window.scrollTo(0, yPos);
+	        };
+	        var timer = setInterval(function () {
+	            if (scrollAmount > 0 && yPos <= yStop || scrollAmount < 0 && yPos >= yStop) {
+	                clearInterval(timer);
+	            } else {
+	                scroll();
+	            }
+	        }, 5);
+	    };
+
+	    return function (selector) {
+	        var el = selector === _typeof("string") ? document.querySelector(selector) : selector;
+	        var elementPos = (0, _elementPosition.getElementPosition)(el);
+	        var scrollPos = window.pageYOffset;
+	        scrollAmount = elementPos > scrollPos ? -Math.abs(scrollAmount) : +Math.abs(scrollAmount);
+	        scrollWindow(scrollPos, elementPos);
+	    };
+	}
+
+/***/ },
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -1913,7 +1953,7 @@
 
 	var _animator2 = _interopRequireDefault(_animator);
 
-	var _scrollTo = __webpack_require__(14);
+	var _scrollTo = __webpack_require__(7);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2042,7 +2082,7 @@
 
 	var _animator2 = _interopRequireDefault(_animator);
 
-	var _scrollTo = __webpack_require__(14);
+	var _scrollTo = __webpack_require__(7);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2775,47 +2815,6 @@
 	    })();
 	  }
 	};
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.scrollTo = scrollTo;
-
-	var _elementPosition = __webpack_require__(3);
-
-	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
-
-	function scrollTo() {
-	    var scrollAmount = arguments.length <= 0 || arguments[0] === undefined ? 20 : arguments[0];
-
-	    var scrollWindow = function scrollWindow(yPos, yStop) {
-	        var scroll = function scroll() {
-	            yPos -= scrollAmount;
-	            window.scrollTo(0, yPos);
-	        };
-	        var timer = setInterval(function () {
-	            if (scrollAmount > 0 && yPos <= yStop || scrollAmount < 0 && yPos >= yStop) {
-	                clearInterval(timer);
-	            } else {
-	                scroll();
-	            }
-	        }, 5);
-	    };
-
-	    return function (selector) {
-	        var el = selector === _typeof("string") ? document.querySelector(selector) : selector;
-	        var elementPos = (0, _elementPosition.getElementPosition)(el);
-	        var scrollPos = window.pageYOffset;
-	        scrollAmount = elementPos > scrollPos ? -Math.abs(scrollAmount) : +Math.abs(scrollAmount);
-	        scrollWindow(scrollPos, elementPos);
-	    };
-	}
 
 /***/ }
 /******/ ]);

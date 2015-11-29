@@ -17,6 +17,7 @@ const DIRS = {
     styles : "/styles",
     globalStyles : "/global",
     homeStyles : "/home",
+    servicesStyles : "/services",
     fonts : "/fonts",
     images : "/images",
     retina : "/retina",
@@ -30,6 +31,8 @@ const PATHS = {
     globalDest : `${DIRS.dest}${DIRS.styles}${DIRS.globalStyles}`,
     homeSrc : `${DIRS.src}${DIRS.styles}${DIRS.homeStyles}`,
     homeDest : `${DIRS.dest}${DIRS.styles}${DIRS.homeStyles}`,
+    servicesSrc : `${DIRS.src}${DIRS.styles}${DIRS.servicesStyles}`,
+    servicesDest : `${DIRS.dest}${DIRS.styles}${DIRS.servicesStyles}`,
     retinaDest : `${DIRS.dest}${DIRS.images}${DIRS.retina}`
 };
 
@@ -87,12 +90,16 @@ gulp.task("home-styles", () => {
     return styles(PATHS.homeSrc, PATHS.homeDest, "home.css");
 });
 
+gulp.task("services-styles", () => {
+    return styles(PATHS.servicesSrc, PATHS.servicesDest, "services.css");
+});
+
 gulp.task("global-styles", () => {
     return styles(PATHS.globalSrc, PATHS.globalDest, "global.css");
 });
 
 gulp.task("styles", () => {
-    return sequence("global-styles", "home-styles");
+    return sequence("global-styles", "home-styles", "services-styles");
 });
 
 gulp.task("assets", () => {
