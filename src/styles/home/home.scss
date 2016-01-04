@@ -47,6 +47,12 @@
   .title-text {
     top: -13px;
   }
+  p {
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 20px;
+    line-height: 25px;
+  }
   .img-centred {
     @media(max-width: 510px) {
       display: block;
@@ -81,12 +87,21 @@
   .title-text {
     top: -20px;
   }
+  h2 {
+    margin-bottom: 20px;
+  }
   .img-centred {
     @media(max-width: 510px) {
       display: block;
       width: 90%;
       margin: 0 auto 20px;
     }
+  }
+  p {
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 20px;
+    line-height: 25px;
   }
   .not-afraid-mobile-img {
     display: none;

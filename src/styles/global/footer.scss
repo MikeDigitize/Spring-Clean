@@ -42,6 +42,12 @@
         top: 20px;
       }
     }
+    .footer-based-in {
+      text-align: center;
+      @media(max-width: 990px) {
+        margin-top: 30px;
+      }
+    }
     .footer-top-info-holder {
       top: 17px;
       @media(max-width:1200px) {

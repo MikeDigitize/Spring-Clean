@@ -14,9 +14,6 @@ export default class MessageUs {
         this.animationSupport = Animator.isSupported();
         this.hideOverlayHandler = this.hideOverlay.bind(this);
         this.isHTML5supported = typeof document.createElement("input").placeholder !== "undefined";
-        if(!this.isHTML5supported) {
-            this.startPlaceholderReplacemment();
-        }
         this.isHelperDisplayed = false;
         this.scrollTo = scrollTo();
     }
@@ -25,18 +22,6 @@ export default class MessageUs {
         let div = document.createElement("div");
         div.classList.add("screen-overlay-absolute");
         return div;
-    }
-
-    startPlaceholderReplacemment() {
-        this.requiredInputs.forEach(input => input.addEventListener("keyup", this.replacePlaceholder.bind(this)));
-        this.nonRequiredInputs.forEach(input => input.addEventListener("keyup", this.replacePlaceholder.bind(this)));
-        this.requiredInputs.forEach(input => input.addEventListener("blur", this.replacePlaceholder.bind(this)));
-        this.nonRequiredInputs.forEach(input => input.addEventListener("blur", this.replacePlaceholder.bind(this)));
-    }
-
-    replacePlaceholder(evt) {
-        let target = evt.target || evt.srcElement;
-        console.log(evt, target);
     }
 
     getInputPosition(input) {
@@ -171,15 +156,34 @@ export default class MessageUs {
         }
         else {
             this.onValid();
-            this.showOverlay();
-            this.showHelper(document.querySelector("#contact-form-submit"));
-            this.requiredInputs.forEach(input => console.log(input.id, input.value));
-            this.nonRequiredInputs.forEach(input => console.log(input.id, input.value));
         }
     }
 
     onValid() {
-        this.setHelperText("Great thanks, we'll get back in touch with you as soon as we can in the next 24 hours!");
+
+        let formData = Array.from(this.form.querySelectorAll("#message-us-form input, #message-us-form textarea")).reduce((obj, el) => {
+            obj[el.name.replace(/-/g, "")] = el.value;
+            return obj;
+        }, {});
+
+        let data = JSON.stringify(formData);
+        let xhr = new XMLHttpRequest();
+        let submit = document.querySelector("#contact-form-submit");
+
+        xhr.open("POST", "contact.php");
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.send(data);
+        xhr.onreadystatechange = () => {
+            this.showOverlay();
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                this.setHelperText("Great thanks, we'll get back in touch with you as soon as we can in the next 24 hours!");
+                submit.setAttribute("disabled", "disabled");
+            }
+            else {
+                this.setHelperText("Whoops something went wrong, try again or give us a call instead?");
+            }
+            this.showHelper(submit);
+        };
     }
 
     showValidationMsg(invalid) {

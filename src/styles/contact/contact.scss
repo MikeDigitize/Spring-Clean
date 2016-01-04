@@ -1,0 +1,40 @@
+@import "../global/variables";
+@import "../global/global";
+
+.message-us-extra-text {
+  width: 100%;
+  margin: 20px auto 40px;
+  font-size: 18px;
+  color: #fff;
+  @include animate-fast;
+  @media(max-width:990px) {
+    font-size: 16px;
+    width: 90%;
+  }
+}
+
+.contact-page {
+
+  .message-us {
+    top: 0;
+   .inner {
+     border-top-left-radius: 0;
+     border-top-right-radius: 0;
+   }
+    @media(max-width:990px) {
+      top: 0;
+    }
+    @media(max-width:768px) {
+      top: -25px;
+    }
+  }
+  .footer {
+    top: 20px;
+    @media(max-width:990px) {
+      top: 33px;
+    }
+    @media(max-width:768px) {
+      top: 65px;
+    }
+  }
+}
