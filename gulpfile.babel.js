@@ -88,7 +88,7 @@ gulp.task("fonts", () => {
 
 gulp.task("html", () => {
     return gulp.src(`${DIRS.src}/*html`)
-        .pipe(minifyHTML())
+        .pipe(minifyHTML({ comments: true }))
         .pipe(gulp.dest(`${DIRS.dest}`));
 });
 
