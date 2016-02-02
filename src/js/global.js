@@ -5,6 +5,7 @@ import { telControls } from "./tel-controls";
 import MessageUs from "./contact-form";
 import "./picturefill.min";
 import "./classList.min";
+import "./ga";
 
 let nav = navControls();
 let tel = telControls(".header-background", ".icon-phone");
